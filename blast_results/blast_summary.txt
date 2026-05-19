@@ -1,0 +1,27 @@
+# Resumen BLAST por marco de lectura (Ejercicio 2)
+# Menor E-value = mejor candidato al marco correcto
+
+## 1. NM_000207.3_Forward_Frame_3
+- Archivo: blast_results/blast_NM_000207.3_Forward_Frame_3.xml
+- Mejor hit: sp|P01308.1| RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor [Homo sapiens] >sp|Q6YK33.1| RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor [Gorilla gorilla gorilla]
+- E-value: 3.36e-76
+- Bit score: 572.0
+- Identidad: 110/110 (100.00%)
+
+## 2. NM_000207.3_Forward_Frame_1
+- Sin hits
+
+## 3. NM_000207.3_Forward_Frame_2
+- Sin hits
+
+## 4. NM_000207.3_Reverse_Frame_1
+- Sin hits
+
+## 5. NM_000207.3_Reverse_Frame_2
+- Sin hits
+
+## 6. NM_000207.3_Reverse_Frame_3
+- Sin hits
+
+MARCO_SELECCIONADO=NM_000207.3_Forward_Frame_3
+BLAST_XML=blast_results/blast_NM_000207.3_Forward_Frame_3.xml

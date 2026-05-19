@@ -1,0 +1,44 @@
+>NM_000207.3_Forward_Frame_3 Traduccion completa del marco Forward_Frame_3 [coincide con CDS de GenBank]
+PSRTGCIRRGHQADHCPSAMALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCNTQPAGSPTPAASCTERDGIKPLNQ
+>sp|P01308.1|INS_HUMAN RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|Q8HXV2.1|INS_PONPY RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLALLALWGPDPAQAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|P30410.1|INS_PANTR RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLVLLALWGPDPASAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|P30406.1|INS_MACFA RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLALLALWGPDPAPAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDPQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|P30407.1|INS_CHLAE RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLALLALWGPDPVPAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKTRREAEDPQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|P01313.2|INS_CRILO RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MTLWMRLLPLLTLLVLWEPNPAQAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKSRRGVEDPQVAQLELGGGPGADDLQTLALEVAQQKRGIVDQCCTSICS
+LYQLENYCN------------------------
+>sp|P01323.1|INS2_RAT RecName: Full=Insulin-2; Contains: RecName: Full=Insulin-2 B chain; Contains: RecName: Full=Insulin-2 A chain; Flags: Precursor
+-------------------MALWIRFLPLLALLILWEPRPAQAFVKQHLCGSHLVEALYL
+VCGERGFFYTPMSRREVEDPQVAQLELGGGPGAGDLQTLALEVARQKRGIVDQCCTSICS
+LYQLENYCN------------------------
+>sp|P01322.1|INS1_RAT RecName: Full=Insulin-1; Contains: RecName: Full=Insulin-1 B chain; Contains: RecName: Full=Insulin-1 A chain; Flags: Precursor
+-------------------MALWMRFLPLLALLVLWEPKPAQAFVKQHLCGPHLVEALYL
+VCGERGFFYTPKSRREVEDPQVPQLELGGGPEAGDLQTLALEVARQKRGIVDQCCTSICS
+LYQLENYCN------------------------
+>sp|P01321.1|INS_CANLF RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMRLLPLLALLALWAPAPTRAFVNQHLCGSHLVEALYL
+VCGERGFFYTPKARREVEDLQVRDVELAGAPGEGGLQPLALEGALQKRGIVEQCCTSICS
+LYQLENYCN------------------------
+>sp|P67972.1|INS_AOTTR RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor
+-------------------MALWMHLLPLLALLALWGPEPAPAFVNQHLCGPHLVEALYL
+VCGERGFFYAPKTRREAEDLQVGQVELGGGSITGSLPP--LEGPMQKRGVVDQCCTSICS
+LYQLQNYCN------------------------

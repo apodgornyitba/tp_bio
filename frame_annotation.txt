@@ -1,0 +1,4 @@
+record=NM_000207.3
+cds_frame=Forward_Frame_3
+cds_length=110
+total_frames=6

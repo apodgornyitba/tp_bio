@@ -1,3 +1,5 @@
+import os
+import shutil
 import sys
 import subprocess
 from Bio.Blast import NCBIXML
@@ -6,6 +8,74 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
+
+def find_executable(*names, extra_paths=()):
+    """Busca un ejecutable en PATH y rutas extra."""
+    for name in names:
+        path = shutil.which(name)
+        if path:
+            return path
+    for candidate in extra_paths:
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return None
+
+
+def run_muscle(muscle_bin, msa_input, msa_output):
+    """Ejecuta MUSCLE probando sintaxis v5 y v3."""
+    try:
+        subprocess.run(
+            [muscle_bin, "-align", msa_input, "-output", msa_output],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return "muscle"
+    except subprocess.CalledProcessError:
+        pass
+
+    subprocess.run(
+        [muscle_bin, "-in", msa_input, "-out", msa_output],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return "muscle"
+
+
+def run_mafft(mafft_bin, msa_input, msa_output):
+    """Ejecuta MAFFT como alternativa a MUSCLE."""
+    with open(msa_output, "w") as out:
+        subprocess.run(
+            [mafft_bin, "--auto", msa_input],
+            check=True,
+            stdout=out,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    return "mafft"
+
+
+def find_msa_tool():
+    """Devuelve (herramienta, ruta_binario) o (None, None)."""
+    brew_paths = ("/opt/homebrew/bin", "/usr/local/bin")
+
+    muscle_bin = find_executable(
+        "muscle", "muscle5",
+        extra_paths=[os.path.join(p, "muscle") for p in brew_paths],
+    )
+    if muscle_bin:
+        return "muscle", muscle_bin
+
+    mafft_bin = find_executable(
+        "mafft",
+        extra_paths=[os.path.join(p, "mafft") for p in brew_paths],
+    )
+    if mafft_bin:
+        return "mafft", mafft_bin
+
+    return None, None
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: python3 Ex3.py <blast_results.xml> <query.fasta>")
@@ -13,8 +83,8 @@ def main():
 
     blast_xml = sys.argv[1]
     query_fasta = sys.argv[2]
-    
-    Entrez.email = "test@example.com"
+
+    Entrez.email = os.environ.get("ENTREZ_EMAIL", "estudiante@itba.edu.ar")
     
     # Read query sequence
     try:
@@ -44,7 +114,9 @@ def main():
         # Let's extract the accession ID
         title_parts = alignment.title.split('|')
         accession = ""
-        if len(title_parts) >= 2 and title_parts[0].startswith('sp') or title_parts[0].startswith('tr'):
+        if len(title_parts) >= 2 and (
+            title_parts[0].startswith("sp") or title_parts[0].startswith("tr")
+        ):
             accession = title_parts[1].split('.')[0]
         else:
             # If format is different, try to use the first word or alignment.accession
@@ -74,14 +146,26 @@ def main():
     SeqIO.write(top10_records, msa_input, "fasta")
     print(f"Saved {len(top10_records)} sequences to {msa_input}")
 
-    # Run Muscle
     msa_output = "msa_output.afa"
-    print("Running MUSCLE for Multiple Sequence Alignment...")
+    tool, tool_bin = find_msa_tool()
+    if not tool:
+        print("ERROR: No hay herramienta de MSA instalada (MUSCLE ni MAFFT).")
+        print("  macOS:   brew install mafft")
+        print("  Ubuntu:  sudo apt-get install muscle")
+        print("Luego volver a ejecutar: python3 Ex3.py blast_results.xml query_best.fasta")
+        sys.exit(1)
+
+    print(f"Running {tool.upper()} ({tool_bin}) for Multiple Sequence Alignment...")
     try:
-        subprocess.run(["muscle", "-align", msa_input, "-output", msa_output], check=True)
+        if tool == "muscle":
+            run_muscle(tool_bin, msa_input, msa_output)
+        else:
+            run_mafft(tool_bin, msa_input, msa_output)
         print(f"MSA successfully saved to {msa_output}")
     except subprocess.CalledProcessError as e:
-        print(f"Error running MUSCLE: {e}")
+        print(f"Error running {tool.upper()}: {e}")
+        if e.stderr:
+            print(e.stderr)
         sys.exit(1)
         
     print("\n--- MSA Interpretation Summary (Ejercicio 3) ---")

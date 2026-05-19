@@ -3,16 +3,41 @@ from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
+
 def get_reading_frames(seq):
+    """Devuelve los 6 marcos de lectura (3 forward + 3 reverse)."""
     frames = []
-    # 3 forward frames
     for i in range(3):
-        frames.append((f"Forward_Frame_{i+1}", seq[i:]))
-    # 3 reverse frames
+        frames.append((f"Forward_Frame_{i + 1}", seq[i:]))
     rev_seq = seq.reverse_complement()
     for i in range(3):
-        frames.append((f"Reverse_Frame_{i+1}", rev_seq[i:]))
+        frames.append((f"Reverse_Frame_{i + 1}", rev_seq[i:]))
     return frames
+
+
+def translate_frame(frame_seq):
+    """Traduce un marco recortando a múltiplo de 3."""
+    length = len(frame_seq)
+    padded = frame_seq[: length - (length % 3)]
+    return str(padded.translate())
+
+
+def find_cds_translation(record):
+    """Obtiene la traducción anotada en la feature CDS, si existe."""
+    for feature in record.features:
+        if feature.type == "CDS" and "translation" in feature.qualifiers:
+            return feature.qualifiers["translation"][0]
+    return None
+
+
+def identify_frame_with_cds(frames, cds_translation):
+    """Identifica en qué marco aparece la traducción del CDS."""
+    for frame_name, frame_seq in frames:
+        translation = translate_frame(frame_seq)
+        if cds_translation in translation:
+            return frame_name
+    return None
+
 
 def main():
     if len(sys.argv) < 3:
@@ -28,78 +53,42 @@ def main():
         sys.exit(1)
 
     fasta_records = []
+    annotation_lines = []
 
     for record in records:
         print(f"Processing record: {record.id}")
-        
-        # Try to find the correct translation using CDS feature if available
-        correct_translation = None
-        for feature in record.features:
-            if feature.type == "CDS":
-                if "translation" in feature.qualifiers:
-                    correct_translation = feature.qualifiers["translation"][0]
-                    break
+        frames = get_reading_frames(record.seq)
+        cds_translation = find_cds_translation(record)
+        cds_frame = None
 
-        if correct_translation:
-            print("Found CDS feature, identifying correct reading frame.")
-            # We found the correct translation, let's save it directly.
-            # We still can evaluate reading frames to show we did it.
-            frames = get_reading_frames(record.seq)
-            correct_frame_name = "Unknown"
-            
-            for frame_name, frame_seq in frames:
-                # pad to multiple of 3
-                length = len(frame_seq)
-                padded_seq = frame_seq[:length - (length % 3)]
-                translation = str(padded_seq.translate())
-                
-                # The exact CDS translation might be a sub-sequence of the whole frame's translation
-                if correct_translation in translation:
-                    correct_frame_name = frame_name
-                    break
+        if cds_translation:
+            cds_frame = identify_frame_with_cds(frames, cds_translation)
+            print(f"CDS encontrado. Marco de lectura esperado: {cds_frame}")
+            annotation_lines.append(f"record={record.id}")
+            annotation_lines.append(f"cds_frame={cds_frame}")
+            annotation_lines.append(f"cds_length={len(cds_translation)}")
 
-            print(f"Correct frame identified as: {correct_frame_name}")
-            
-            # Save the correct translated CDS
-            translated_record = SeqRecord(
-                Seq(correct_translation),
-                id=f"{record.id}_correct_ORF",
-                description=f"Translated correct ORF based on CDS ({correct_frame_name})"
+        for frame_name, frame_seq in frames:
+            translation = translate_frame(frame_seq)
+            seq_id = f"{record.id}_{frame_name}"
+            description = f"Traduccion completa del marco {frame_name}"
+            if cds_frame == frame_name:
+                description += " [coincide con CDS de GenBank]"
+
+            fasta_records.append(
+                SeqRecord(Seq(translation), id=seq_id, description=description)
             )
-            fasta_records.append(translated_record)
-        else:
-            print("No CDS feature found, outputting longest ORF for all frames.")
-            # Find the longest ORF among all 6 frames
-            frames = get_reading_frames(record.seq)
-            longest_orf = ""
-            best_frame = ""
-            
-            for frame_name, frame_seq in frames:
-                length = len(frame_seq)
-                padded_seq = frame_seq[:length - (length % 3)]
-                translation = str(padded_seq.translate())
-                
-                # Split by stop codon
-                orfs = translation.split('*')
-                for orf in orfs:
-                    # An ORF typically starts with Methionine
-                    idx = orf.find('M')
-                    if idx != -1:
-                        valid_orf = orf[idx:]
-                        if len(valid_orf) > len(longest_orf):
-                            longest_orf = valid_orf
-                            best_frame = frame_name
-
-            print(f"Longest ORF found in {best_frame}")
-            translated_record = SeqRecord(
-                Seq(longest_orf),
-                id=f"{record.id}_longest_ORF",
-                description=f"Longest ORF translation ({best_frame})"
-            )
-            fasta_records.append(translated_record)
+            print(f"  {frame_name}: {len(translation)} aa (stops: {translation.count('*')})")
 
     SeqIO.write(fasta_records, output_fasta, "fasta")
-    print(f"Saved correctly identified sequence(s) to {output_fasta}")
+    print(f"\nGuardadas {len(fasta_records)} secuencias en {output_fasta}")
+
+    annotation_file = "frame_annotation.txt"
+    with open(annotation_file, "w") as f:
+        f.write("\n".join(annotation_lines) + "\n")
+        f.write(f"total_frames={len(fasta_records)}\n")
+    print(f"Anotacion de marcos guardada en {annotation_file}")
+
 
 if __name__ == "__main__":
     main()

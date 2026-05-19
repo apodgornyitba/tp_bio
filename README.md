@@ -1,35 +1,68 @@
 # TP Cuatrimestral - Parte 1 - Bioinformática
 
-Este repositorio contiene los scripts requeridos para el TP Cuatrimestral de Bioinformática. Se eligió investigar sobre el gen humano **INS (Insulina)**.
+Trabajo práctico sobre el gen humano **INS (Insulina)**, asociado a la **diabetes mellitus** (consulta en OMIM).
 
 ## Requisitos previos
 
-El entorno de ejecución requiere tener instalados `python3`, `biopython` y el software `muscle` para los alineamientos múltiples (MSA).
-El script de instalación de dependencias corre automáticamente:
+- Linux (o Workspace ITBA)
+- `python3` + `biopython`
+- `muscle` o `mafft` (alineamiento múltiple; en macOS: `brew install mafft`)
+- Conexión a internet (NCBI Entrez + BLAST remoto)
+
 ```bash
 sudo apt-get update && sudo apt-get install -y python3-biopython muscle
+# o: pip install biopython
 ```
 
-## Archivos y Scripts
+Configurar email para NCBI (obligatorio):
 
-1. **`fetch_data.py`**: Descarga automáticamente la secuencia madura (mRNA) en formato GenBank del gen INS (`NM_000207`) desde NCBI utilizando Entrez.
-2. **`Ex1.py`**: *(Ejercicio 1)* Recibe un archivo `.gbk`, busca la secuencia correcta del Open Reading Frame (ORF) según la anotación `CDS` del GenBank (o busca el ORF más largo si no la hay) y la traduce a aminoácidos, exportando el resultado a formato FASTA (`NM_000207.fasta`).
-3. **`Ex2_a.py`**: *(Ejercicio 2.a y 2.b)* Lee la secuencia en FASTA generada en el paso anterior y realiza una búsqueda remota de BLAST contra la base de datos `swissprot`. Guarda los resultados en `blast_results.xml` e imprime una interpretación de los mejores alineamientos obtenidos (Explicando el E-value y % de identidad).
-4. **`Ex3.py`**: *(Ejercicio 3)* Analiza el archivo de resultados XML de BLAST, extrae los ID de acceso de los 10 mejores resultados (homólogos a la insulina en otras especies) y obtiene sus secuencias completas desde NCBI Entrez. Combina estos 10 secuencias con la secuencia original y realiza un Multiple Sequence Alignment (MSA) local utilizando MUSCLE, exportando los resultados a `msa_output.afa`.
-5. **`run_pipeline.sh`**: Es el script de Bash principal que orquesta la ejecución secuencial de todos los pasos, loguea los resultados, realiza chequeo de errores y valida la correcta generación de los archivos.
+```bash
+export ENTREZ_EMAIL="tu_email@ejemplo.com"
+```
 
-## Cómo ejecutar
+## Flujo del pipeline
 
-Para correr todos los ejercicios secuencialmente y generar los outputs y logs solicitados:
+```
+OMIM/INS → NM_000207.gbk → 6 marcos (FASTA) → BLAST×6 → mejor marco → MSA
+```
+
+| Paso | Script | Input | Output |
+|------|--------|-------|--------|
+| 0 | `fetch_data.py` | — | `NM_000207.gbk` |
+| 1 | `Ex1.py` | `.gbk` | `NM_000207_frames.fasta` (6 secuencias) |
+| 2 | `Ex2_a.py` | frames FASTA | `blast_results/`, `blast_results.xml`, `query_best.fasta` |
+| 3 | `Ex3.py` | XML + query | `msa_input.fasta`, `msa_output.afa` |
+
+## Ejecución
 
 ```bash
 chmod +x run_pipeline.sh
+export ENTREZ_EMAIL="tu_email@ejemplo.com"
 ./run_pipeline.sh
 ```
 
-El script principal dejará registro de todo el proceso en `pipeline.log` y generará los siguientes archivos:
-- `NM_000207.gbk` (Input Ej 1)
-- `NM_000207.fasta` (Output Ej 1 / Input Ej 2)
-- `blast_results.xml` (Output Ej 2 / Input Ej 3)
-- `msa_input.fasta` (Input secundario Ej 3)
-- `msa_output.afa` (Output Ej 3 - Alineamiento Múltiple)
+**Nota:** el Ejercicio 2 ejecuta **6 BLAST remotos** (uno por marco). Puede tardar **30–60 minutos**.
+
+Ejecución paso a paso:
+
+```bash
+python3 fetch_data.py
+python3 Ex1.py NM_000207.gbk NM_000207_frames.fasta
+python3 Ex2_a.py NM_000207_frames.fasta blast_results
+python3 Ex3.py blast_results.xml query_best.fasta
+```
+
+## Entregables
+
+- Scripts: `Ex1.py`, `Ex2_a.py`, `Ex3.py`, `run_pipeline.sh`
+- Inputs/outputs generados por el pipeline
+- `interpretacion_blast.md` (Ej. 2.b) – completar tras correr BLAST
+- `interpretacion_msa.md` (Ej. 3) – completar tras correr MSA
+- Presentación oral: investigación OMIM + INS + diabetes (**sin código**)
+
+## Investigación (para la exposición)
+
+1. Buscar **diabetes mellitus** y gen **INS** en [OMIM](https://omim.org/).
+2. Explicar función de la insulina (células β del páncreas, glucemia).
+3. Por qué se usa **NM_000207** (mRNA maduro, sin intrones).
+4. Interpretar resultados BLAST y MSA con los archivos generados.

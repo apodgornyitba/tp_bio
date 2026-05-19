@@ -1,11 +1,12 @@
-from Bio import Entrez
+import os
 import sys
+from Bio import Entrez
 
-Entrez.email = "test@example.com"
+Entrez.email = os.environ.get("ENTREZ_EMAIL", "estudiante@itba.edu.ar")
 accession = "NM_000207"
 
 try:
-    print(f"Fetching {accession} from NCBI...")
+    print(f"Fetching {accession} from NCBI (email: {Entrez.email})...")
     handle = Entrez.efetch(db="nucleotide", id=accession, rettype="gb", retmode="text")
     data = handle.read()
     with open(f"{accession}.gbk", "w") as f:
