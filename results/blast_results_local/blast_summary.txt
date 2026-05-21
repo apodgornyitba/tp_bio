@@ -1,0 +1,35 @@
+# Resumen BLAST por marco de lectura
+# Menor E-value = mejor candidato al marco correcto
+
+## 1. NM_000207.3_Forward_Frame_3
+- Archivo: blast_results_local/blast_NM_000207.3_Forward_Frame_3.xml
+- Mejor hit: gnl|BL_ORD_ID|79828 P01308.1 RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor [Homo sapiens] Q6YK33.1 RecName: Full=Insulin; Contains: RecName: Full=Insulin B chain; Contains: RecName: Full=Insulin A chain; Flags: Precursor [Gorilla gorilla gorilla]
+- E-value: 3.32e-76
+- Bit score: 572.0
+- Identidad: 110/110 (100.00%)
+
+## 2. NM_000207.3_Forward_Frame_2
+- Archivo: blast_results_local/blast_NM_000207.3_Forward_Frame_2.xml
+- Mejor hit: gnl|BL_ORD_ID|275586 A5PMY6.1 RecName: Full=Collectin-12 [Danio rerio]
+- E-value: 5.58e-01
+- Bit score: 75.0
+- Identidad: 23/66 (34.85%)
+
+## 3. NM_000207.3_Forward_Frame_1
+- Archivo: blast_results_local/blast_NM_000207.3_Forward_Frame_1.xml
+- Mejor hit: gnl|BL_ORD_ID|119932 Q9VC45.3 RecName: Full=Protein abnormal spindle [Drosophila melanogaster]
+- E-value: 1.34e+00
+- Bit score: 73.0
+- Identidad: 16/30 (53.33%)
+
+## 4. NM_000207.3_Reverse_Frame_1
+- Sin hits
+
+## 5. NM_000207.3_Reverse_Frame_2
+- Sin hits
+
+## 6. NM_000207.3_Reverse_Frame_3
+- Sin hits
+
+MARCO_SELECCIONADO=NM_000207.3_Forward_Frame_3
+BLAST_XML=blast_results_local/blast_NM_000207.3_Forward_Frame_3.xml
