@@ -1,10 +1,32 @@
 import sys
 import subprocess
+import shutil
 from Bio.Blast import NCBIXML
 from Bio import Entrez
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
+
+
+def run_muscle(msa_input, msa_output):
+    # Support both MUSCLE v3 (-in/-out) and newer syntax (-align/-output).
+    if shutil.which("muscle") is None:
+        raise RuntimeError("MUSCLE no está instalado o no está en PATH")
+
+    commands = [
+        ["muscle", "-align", msa_input, "-output", msa_output],
+        ["muscle", "-in", msa_input, "-out", msa_output],
+    ]
+
+    last_error = None
+    for cmd in commands:
+        try:
+            subprocess.run(cmd, check=True)
+            return
+        except subprocess.CalledProcessError as e:
+            last_error = e
+
+    raise RuntimeError(f"No se pudo ejecutar MUSCLE con una sintaxis compatible: {last_error}")
 
 def main():
     if len(sys.argv) < 3:
@@ -44,7 +66,7 @@ def main():
         # Let's extract the accession ID
         title_parts = alignment.title.split('|')
         accession = ""
-        if len(title_parts) >= 2 and title_parts[0].startswith('sp') or title_parts[0].startswith('tr'):
+        if len(title_parts) >= 2 and (title_parts[0].startswith('sp') or title_parts[0].startswith('tr')):
             accession = title_parts[1].split('.')[0]
         else:
             # If format is different, try to use the first word or alignment.accession
@@ -78,9 +100,9 @@ def main():
     msa_output = "msa_output.afa"
     print("Running MUSCLE for Multiple Sequence Alignment...")
     try:
-        subprocess.run(["muscle", "-align", msa_input, "-output", msa_output], check=True)
+        run_muscle(msa_input, msa_output)
         print(f"MSA successfully saved to {msa_output}")
-    except subprocess.CalledProcessError as e:
+    except Exception as e:
         print(f"Error running MUSCLE: {e}")
         sys.exit(1)
         
