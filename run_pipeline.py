@@ -107,10 +107,28 @@ def main():
         ROOT / "msa_output.afa",
     )
 
+    # Paso 4
+    run_step(
+        "Ejercicio 4 - EMBOSS y Dominios",
+        [py, "Ex4.py", "NM_000207.gbk", "emboss_results"],
+        ROOT / "emboss_results" / "NM_000207_domains.patmatmotifs",
+    )
+
+    # Paso 5
+    run_step(
+        "Ejercicio 5 - Diseño de Primers",
+        [py, "Ex5.py", "NM_000207.gbk", "primer_config.json", "primer_results"],
+        ROOT / "primer_results" / "primers.json",
+    )
+
     log("\n" + "=" * 50)
     log(" PIPELINE FINALIZADO")
-    log(" Archivos: NM_000207.gbk, NM_000207_frames.fasta,")
-    log("  blast_results*, msa_output.afa")
+    log(" Archivos generados:")
+    log("  - NM_000207.gbk, NM_000207_frames.fasta")
+    log("  - blast_results* (XML y mejores consultas)")
+    log("  - msa_output.afa (alineamiento múltiple)")
+    log("  - emboss_results/ (NM_000207_nucleotides.fasta, NM_000207_orfs.fasta, NM_000207_domains.patmatmotifs)")
+    log("  - primer_results/ (primers.json, primers_report.txt)")
     if blast_mode == "both":
         log("  Remoto: blast_results/ | Local: blast_results_local/")
     log("=" * 50)

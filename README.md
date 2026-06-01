@@ -1,6 +1,6 @@
-# TP Cuatrimestral - Parte 1 - Bioinformática
+# TP Cuatrimestral - Parte 1 y 2 - Bioinformática
 
-Trabajo sobre el gen **INS (Insulina)** y **diabetes mellitus** (OMIM).
+Trabajo sobre el gen **INS (Insulina)** y **diabetes mellitus** (OMIM) - Implementación Completa.
 
 **Compatible con:** Linux, macOS y Windows.
 
@@ -12,7 +12,11 @@ Trabajo sobre el gen **INS (Insulina)** y **diabetes mellitus** (OMIM).
 | BioPython | `pip install biopython` | igual | igual |
 | MSA | `sudo apt install mafft` o `muscle` | `brew install mafft` | `conda install -c bioconda mafft` |
 | BLAST+ (opcional local) | `sudo apt install ncbi-blast+` | [NCBI BLAST+](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) | Instalador NCBI + PATH |
-| Internet | NCBI Entrez + BLAST remoto | igual | igual |
+| EMBOSS (opcional) | `sudo apt install emboss` | `brew install emboss` | [EMBOSS](https://emboss.sourceforge.net/) |
+| Internet | NCBI Entrez + BLAST remoto + Descarga de PROSITE | igual | igual |
+
+> [!NOTE]
+> **Robustez del Pipeline:** Si la suite **EMBOSS** no está instalada localmente o falla, el pipeline cuenta con un **fallback en Python puro** de alta precisión para los programas `getorf` y `patmatmotifs` (incluye parser regex de `prosite.dat`). ¡El pipeline se ejecutará correctamente sin dependencias externas complejas!
 
 ## Instalación rápida
 
@@ -76,7 +80,7 @@ Descarga Swiss-Prot desde NCBI y ejecuta `makeblastdb`.
 ## Flujo del pipeline
 
 ```
-fetch_data.py  →  Ex1.py  →  Ex2_a.py (remoto)  →  Ex3.py
+fetch_data.py  →  Ex1.py  →  Ex2_a.py (remoto)  →  Ex3.py  →  Ex4.py (EMBOSS)  →  Ex5.py (Primers)
                               Ex2_local.py (opcional)
 ```
 
@@ -86,18 +90,27 @@ Orquestador multiplataforma: **`run_pipeline.py`**
 |------|--------|------------------|
 | 0 | `fetch_data.py` | `NM_000207.gbk` |
 | 1 | `Ex1.py` | `NM_000207_frames.fasta` (6 marcos) |
-| 2a | `Ex2_a.py` | `blast_results.xml` |
-| 2b | `Ex2_local.py` | `blast_results_local.xml` |
-| 3 | `Ex3.py` | `msa_output.afa` |
+| 2a | `Ex2_a.py` | `blast_results.xml` (remoto) |
+| 2b | `Ex2_local.py` | `blast_results_local.xml` (local, opcional) |
+| 3 | `Ex3.py` | `msa_output.afa` (Alineamiento múltiple) |
+| 4 | `Ex4.py` | `emboss_results/NM_000207_domains.patmatmotifs` (Dominios PROSITE) |
+| 5 | `Ex5.py` | `primer_results/primers.json` (Diseño de primers qPCR) |
 
 ## Ejecución manual (paso a paso)
 
 ```bash
+# Paso 0: Descarga GenBank
 python fetch_data.py
+# Paso 1: Traducir 6 marcos
 python Ex1.py NM_000207.gbk NM_000207_frames.fasta
+# Paso 2: Ejecutar BLASTp (remoto)
 python Ex2_a.py NM_000207_frames.fasta blast_results
-python Ex2_local.py NM_000207_frames.fasta blast_results_local   # opcional
+# Paso 3: Alinear hits con la consulta (MSA)
 python Ex3.py blast_results.xml query_best.fasta
+# Paso 4: Análisis de Dominios con EMBOSS / PROSITE
+python Ex4.py NM_000207.gbk emboss_results
+# Paso 5: Diseño de Primers qPCR parametrizado
+python Ex5.py NM_000207.gbk primer_config.json primer_results
 ```
 
 ## Variables de entorno
@@ -113,10 +126,12 @@ python Ex3.py blast_results.xml query_best.fasta
 ## Entregables
 
 - Scripts Python + `run_pipeline.py` / `.sh` / `.bat`
-- Outputs del pipeline
+- Archivo de configuración: `primer_config.json`
+- Outputs completos del pipeline (incluyendo `emboss_results/` y `primer_results/`)
+- Documento local descargado: `prosite.dat`
 - `interpretacion_blast.md`, `interpretacion_msa.md`
-- `INFORME_PROYECTO.md` (base para informe escrito)
-- Presentación oral: investigación OMIM/INS (**sin código**)
+- `INFORME_PROYECTO.md` (informe completo de reporte integrado, base académica para la entrega)
+- Presentación oral: investigación del gen INS y diabetes (**sin código**, 10 min de exposición)
 
 ## Notas
 
