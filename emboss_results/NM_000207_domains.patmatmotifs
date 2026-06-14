@@ -1,6 +1,6 @@
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_1]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -28,7 +28,7 @@
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_2]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -56,7 +56,7 @@
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_3]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -84,7 +84,7 @@
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_4]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -122,7 +122,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_5]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -150,7 +150,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_6]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -178,7 +178,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_7]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -206,7 +206,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_8]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -234,7 +234,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_9]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -262,7 +262,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_10]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -290,7 +290,7 @@ GIVEQCCTSICSLYQLENYCN
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_11]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -328,7 +328,7 @@ ASSASRGRRRIHRA
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_12]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -356,7 +356,7 @@ ASSASRGRRRIHRA
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_13]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
@@ -394,7 +394,7 @@ AHPQGHGRRTVICL
 
 ########################################
 # Program: patmatmotifs
-# Rundate: Sun 14 Jun 2026 14:54:00
+# Rundate: Sun 14 Jun 2026 16:50:44
 # Commandline: patmatmotifs
 #    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_14]
 #    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
