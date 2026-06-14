@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 pipeline.log
+.emboss_data/
 data/swissprot
 data/swissprot.gz
 data/swissprot_db.*

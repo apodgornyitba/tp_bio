@@ -72,6 +72,15 @@ def find_msa_tool():
     return None, None
 
 
+def find_emboss_tools():
+    """Devuelve rutas de herramientas EMBOSS requeridas para la entrega final."""
+    return {
+        "getorf": find_executable("getorf"),
+        "prosextract": find_executable("prosextract"),
+        "patmatmotifs": find_executable("patmatmotifs"),
+    }
+
+
 def default_blast_db():
     """Ruta por defecto de la base Swiss-Prot formateada."""
     env = os.environ.get("BLAST_DB")
@@ -106,3 +115,11 @@ def print_install_hints(tool="general"):
             print("  brew install mafft")
         else:
             print("  sudo apt install mafft muscle")
+    if tool in ("emboss", "general"):
+        print("EMBOSS (getorf, prosextract, patmatmotifs):")
+        if system == "Windows":
+            print("  conda install -c bioconda emboss")
+        elif system == "Darwin":
+            print("  conda install -c bioconda emboss")
+        else:
+            print("  sudo apt install emboss")

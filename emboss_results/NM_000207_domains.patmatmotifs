@@ -1,525 +1,420 @@
-#=======================================
-#
-# Aligned_sequences: 22
-# Database: PROSITE (Python Fallback)
-#
-#=======================================
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_1]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_1: MYRISTYL
+# Sequence: NM_000207.3_1     from: 1   to: 38
+# HitCount: 0
 #
-# Sequence: NM_000207.3_1
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 4
-# End: 9
-# Hit: G-Q-A-A-S-E
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_3: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_3
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 19
-# End: 21
-# Hit: T-C-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_2]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_3: PKC_PHOSPHO_SITE
+# Sequence: NM_000207.3_2     from: 1   to: 45
+# HitCount: 0
 #
-# Sequence: NM_000207.3_3
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 63
-# End: 65
-# Hit: S-W-R
-# Pattern: [ST]-x-[RK]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_3: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_3
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 69
-# End: 71
-# Hit: T-R-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_3]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_3: MYRISTYL
+# Sequence: NM_000207.3_3     from: 1   to: 14
+# HitCount: 0
 #
-# Sequence: NM_000207.3_3
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 3
-# End: 8
-# Hit: G-N-E-A-S-S
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_6: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_6
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 12
-# End: 14
-# Hit: S-S-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_4]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_7: PKC_PHOSPHO_SITE
+# Sequence: NM_000207.3_4     from: 1   to: 129
+# HitCount: 1
 #
-# Sequence: NM_000207.3_7
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 22
-# End: 24
-# Hit: S-V-R
-# Pattern: [ST]-x-[RK]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_7: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_7
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 100
-# End: 102
-# Hit: T-R-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+Length = 15
+Start = position 114 of sequence
+End = position 128 of sequence
+
+Motif = INSULIN
+
+GIVEQCCTSICSLYQLENYCN
+     |             |
+   114             128
+
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_5]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_7: CK2_PHOSPHO_SITE
+# Sequence: NM_000207.3_5     from: 1   to: 88
+# HitCount: 0
 #
-# Sequence: NM_000207.3_7
-# Accession: PS00006
-# Description: Casein kinase II phosphorylation site.
-# Start: 4
-# End: 7
-# Hit: S-L-C-E
-# Pattern: [ST]-x(2)-[DE]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_7: MYRISTYL
-#
-# Sequence: NM_000207.3_7
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 43
-# End: 48
-# Hit: G-G-A-G-G-A
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_6]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_7: MYRISTYL
+# Sequence: NM_000207.3_6     from: 1   to: 115
+# HitCount: 0
 #
-# Sequence: NM_000207.3_7
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 63
-# End: 68
-# Hit: G-G-V-P-A-E
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_8: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_8
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 70
-# End: 72
-# Hit: T-P-K
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_7]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_8: PKC_PHOSPHO_SITE
+# Sequence: NM_000207.3_7     from: 1   to: 24
+# HitCount: 0
 #
-# Sequence: NM_000207.3_8
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 73
-# End: 75
-# Hit: T-R-R
-# Pattern: [ST]-x-[RK]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_8: CK2_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_8
-# Accession: PS00006
-# Description: Casein kinase II phosphorylation site.
-# Start: 73
-# End: 76
-# Hit: T-R-R-E
-# Pattern: [ST]-x(2)-[DE]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_8]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_8: MYRISTYL
+# Sequence: NM_000207.3_8     from: 1   to: 24
+# HitCount: 0
 #
-# Sequence: NM_000207.3_8
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 88
-# End: 93
-# Hit: G-G-G-P-G-A
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_8: INSULIN
-#
-# Sequence: NM_000207.3_8
-# Accession: PS00262
-# Description: Insulin family signature.
-# Start: 114
-# End: 128
-# Hit: C-C-T-S-I-C-S-L-Y-Q-L-E-N-Y-C
-# Pattern: C-C-{P}-{P}-x-C-[STDNEKPI]-x(3)-[LIVMFS]-x(3)-C
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_9]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_9: PKC_PHOSPHO_SITE
+# Sequence: NM_000207.3_9     from: 1   to: 52
+# HitCount: 0
 #
-# Sequence: NM_000207.3_9
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 14
-# End: 16
-# Hit: T-E-R
-# Pattern: [ST]-x-[RK]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_9: CK2_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_9
-# Accession: PS00006
-# Description: Casein kinase II phosphorylation site.
-# Start: 12
-# End: 15
-# Hit: S-C-T-E
-# Pattern: [ST]-x(2)-[DE]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_10]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_10: PKC_PHOSPHO_SITE
+# Sequence: NM_000207.3_10     from: 1   to: 94
+# HitCount: 0
 #
-# Sequence: NM_000207.3_10
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 110
-# End: 112
-# Hit: S-Q-R
-# Pattern: [ST]-x-[RK]
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_10: MYRISTYL
-#
-# Sequence: NM_000207.3_10
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 19
-# End: 24
-# Hit: G-C-L-R-A-A
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_11]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_10: MYRISTYL
+# Sequence: NM_000207.3_11     from: 1   to: 43
+# HitCount: 1
 #
-# Sequence: NM_000207.3_10
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 82
-# End: 87
-# Hit: G-S-W-V-C-R
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_10: MYRISTYL
-#
-# Sequence: NM_000207.3_10
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 102
-# End: 107
-# Hit: G-V-S-R-T-G
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
+Length = 4
+Start = position 30 of sequence
+End = position 33 of sequence
+
+Motif = AMIDATION
+
+ASSASRGRRRIHRA
+     |  |
+    30  33
+
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_12]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_10: MYRISTYL
+# Sequence: NM_000207.3_12     from: 1   to: 147
+# HitCount: 0
 #
-# Sequence: NM_000207.3_10
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 127
-# End: 132
-# Hit: G-A-G-G-A-S
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_11: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_11
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 4
-# End: 6
-# Hit: S-W-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_13]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_12: ASN_GLYCOSYLATION
+# Sequence: NM_000207.3_13     from: 1   to: 51
+# HitCount: 1
 #
-# Sequence: NM_000207.3_12
-# Accession: PS00001
-# Description: N-glycosylation site.
-# Start: 45
-# End: 48
-# Hit: N-A-T-L
-# Pattern: N-{P}-[ST]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_12: MYRISTYL
-#
-# Sequence: NM_000207.3_12
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 11
-# End: 16
-# Hit: G-A-G-G-G-G
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
+Length = 4
+Start = position 32 of sequence
+End = position 35 of sequence
+
+Motif = AMIDATION
+
+AHPQGHGRRTVICL
+     |  |
+    32  35
+
+
+#---------------------------------------
+#---------------------------------------
+
+
+########################################
+# Program: patmatmotifs
+# Rundate: Sun 14 Jun 2026 14:54:00
+# Commandline: patmatmotifs
+#    -sequence /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_orfs.fasta [NM_000207.3_14]
+#    -outfile /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+#    -prune
+#    -auto
+# Report_format: dbmotif
+# Report_file: /Users/martin.zahnd/Documents/Bio/tp_bio/emboss_results/NM_000207_domains.patmatmotifs
+########################################
 
 #=======================================
 #
-# NM_000207.3_12: MYRISTYL
+# Sequence: NM_000207.3_14     from: 1   to: 11
+# HitCount: 0
 #
-# Sequence: NM_000207.3_12
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 18
-# End: 23
-# Hit: G-A-A-C-G-L
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
+# Full: No
+# Prune: Yes
+# Data_file: /Users/martin.zahnd/Documents/Bio/tp_bio/.emboss_data/PROSITE/prosite.lines
 #
 #=======================================
 
-#=======================================
-#
-# NM_000207.3_12: MYRISTYL
-#
-# Sequence: NM_000207.3_12
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 35
-# End: 40
-# Hit: G-A-D-A-G-T
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
 
-#=======================================
-#
-# NM_000207.3_12: MYRISTYL
-#
-# Sequence: NM_000207.3_12
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 57
-# End: 62
-# Hit: G-L-Q-A-A-C
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_14: AMIDATION
-#
-# Sequence: NM_000207.3_14
-# Accession: PS00009
-# Description: Amidation site.
-# Start: 32
-# End: 35
-# Hit: H-G-R-R
-# Pattern: x-G-[RK]-[RK]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_15: CK2_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_15
-# Accession: PS00006
-# Description: Casein kinase II phosphorylation site.
-# Start: 10
-# End: 13
-# Hit: S-V-Q-E
-# Pattern: [ST]-x(2)-[DE]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_15: MYRISTYL
-#
-# Sequence: NM_000207.3_15
-# Accession: PS00008
-# Description: N-myristoylation site.
-# Start: 18
-# End: 23
-# Hit: G-L-P-A-G-C
-# Pattern: G-{EDRKHPFYW}-x(2)-[STAGCN]-{P}
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_18: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_18
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 40
-# End: 42
-# Hit: T-C-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_18: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_18
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 46
-# End: 48
-# Hit: S-R-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_20: PKC_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_20
-# Accession: PS00005
-# Description: Protein kinase C phosphorylation site.
-# Start: 3
-# End: 5
-# Hit: S-T-R
-# Pattern: [ST]-x-[RK]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_20: CK2_PHOSPHO_SITE
-#
-# Sequence: NM_000207.3_20
-# Accession: PS00006
-# Description: Casein kinase II phosphorylation site.
-# Start: 4
-# End: 7
-# Hit: T-R-C-E
-# Pattern: [ST]-x(2)-[DE]
-#
-#=======================================
-
-#=======================================
-#
-# NM_000207.3_20: AMIDATION
-#
-# Sequence: NM_000207.3_20
-# Accession: PS00009
-# Description: Amidation site.
-# Start: 30
-# End: 33
-# Hit: R-G-R-R
-# Pattern: x-G-[RK]-[RK]
-#
-#=======================================
-
+#---------------------------------------
+#---------------------------------------

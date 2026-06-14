@@ -3,6 +3,7 @@ from pathlib import Path
 
 from Bio import SeqIO
 from Bio.Blast import NCBIXML
+from Bio.SeqRecord import SeqRecord
 
 
 def top_hit_stats(blast_record):
@@ -13,6 +14,9 @@ def top_hit_stats(blast_record):
         return None
     hsp = alignment.hsps[0]
     identity_pct = (hsp.identities / hsp.align_length) * 100 if hsp.align_length else 0
+    query_length = getattr(blast_record, "query_length", 0) or 0
+    query_span = hsp.query_end - hsp.query_start + 1
+    query_coverage = (query_span / query_length) * 100 if query_length else 0
     return {
         "title": alignment.title,
         "evalue": hsp.expect,
@@ -20,6 +24,10 @@ def top_hit_stats(blast_record):
         "identities": hsp.identities,
         "align_length": hsp.align_length,
         "identity_pct": identity_pct,
+        "gaps": getattr(hsp, "gaps", 0),
+        "query_from": hsp.query_start,
+        "query_to": hsp.query_end,
+        "query_coverage_pct": query_coverage,
     }
 
 
@@ -50,6 +58,11 @@ def write_summary(summary_path, results, title_suffix=""):
                 f"- Identidad: {stats['identities']}/{stats['align_length']} "
                 f"({stats['identity_pct']:.2f}%)"
             )
+            lines.append(
+                f"- Region query alineada: aa {stats['query_from']}-{stats['query_to']} "
+                f"({stats['query_coverage_pct']:.2f}% de la traduccion completa)"
+            )
+            lines.append(f"- Gaps: {stats['gaps']}")
         else:
             lines.append("- Sin hits")
         lines.append("")
@@ -60,11 +73,30 @@ def write_summary(summary_path, results, title_suffix=""):
     return best
 
 
+def trim_record_to_best_hsp(record, stats):
+    """Return the BLAST-aligned query region, trimming UTR-derived frame noise."""
+    if not stats or not stats.get("query_from") or not stats.get("query_to"):
+        return record
+
+    start = stats["query_from"] - 1
+    end = stats["query_to"]
+    trimmed_seq = record.seq[start:end]
+    return SeqRecord(
+        trimmed_seq,
+        id=f"{record.id}_CDS",
+        description=(
+            f"Region CDS alineada por BLAST aa {stats['query_from']}-{stats['query_to']} "
+            f"recortada desde {record.id}"
+        ),
+    )
+
+
 def finalize_best_result(results, summary_path, xml_copy="blast_results.xml",
                          fasta_copy="query_best.fasta"):
     best = write_summary(summary_path, results)
     Path(xml_copy).write_text(Path(best["xml_path"]).read_text(encoding="utf-8"), encoding="utf-8")
-    SeqIO.write(best["record"], fasta_copy, "fasta")
+    query_record = trim_record_to_best_hsp(best["record"], best["stats"])
+    SeqIO.write(query_record, fasta_copy, "fasta")
     return best
 
 

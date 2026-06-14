@@ -1,20 +1,20 @@
 # Ejercicio 3 – Interpretación del alineamiento múltiple (MSA)
 
 **Herramienta:** MAFFT (alternativa a MUSCLE; misma función)  
-**Input:** Query (Forward_Frame_3) + 10 mejores hits de BLAST  
+**Input:** Query CDS recortada desde `Forward_Frame_3` + 10 mejores hits de BLAST  
 **Output:** `msa_output.afa`
 
 ## 1. Secuencias incluidas
 
 | # | ID | Organismo |
 |---|-----|-----------|
-| 0 | NM_000207.3_Forward_Frame_3 | *Homo sapiens* (query) |
+| 0 | NM_000207.3_Forward_Frame_3_CDS | *Homo sapiens* (query CDS recortada por BLAST) |
 | 1 | P01308 | Humano |
-| 2 | Q8HXV2 | Gorila |
+| 2 | Q8HXV2 | Orangután (*Pongo pygmaeus*) |
 | 3 | P30410 | Chimpancé |
 | 4 | P30406 | Macaco |
 | 5 | P30407 | Mono verde |
-| 6 | P01313 | Loris |
+| 6 | P01313 | Hámster chino (*Cricetulus longicaudatus*) |
 | 7 | P01323 | Rata (insulina-2) |
 | 8 | P01322 | Rata (insulina-1) |
 | 9 | P01321 | Perro |
@@ -32,9 +32,9 @@ Estas regiones son esenciales para el plegamiento y la actividad hormonal.
 
 ## 3. Regiones variables y gaps
 
-- **Extremo N-terminal de la query:** la traducción del marco completo incluye aminoácidos extra antes de Met (diferencia con Swiss-Prot que empieza en Met1); aparecen gaps en esa zona.
-- **Rata y loris:** mayor número de sustituciones y pequeños gaps respecto a primates.
-- **Cola C-terminal de la query:** incluye residuos extra por traducir el marco completo hasta el final del mRNA (no solo el CDS de 110 aa).
+- **Query recortada:** `query_best.fasta` se genera desde la región alineada por BLAST (aa 20-129 del marco completo), eliminando aminoácidos traducidos desde UTRs y el stop final.
+- **Rata y hámster chino:** mayor número de sustituciones y pequeños gaps respecto a primates.
+- **Mono nocturno y roedores:** muestran más divergencia que los primates cercanos, pero conservan el núcleo funcional.
 
 ## 4. Conclusión
 

@@ -1,10 +1,10 @@
-# Documento base para informe — TP Bioinformática Parte 1
+# Documento base para informe — TP Bioinformática Parte 1 y 2
 
 > **Uso:** Entregar este archivo a Claude (u otro asistente) con la instrucción:  
 > *"Armá un informe académico formal en español a partir de este documento, con introducción, materiales y métodos, resultados, discusión y conclusiones."*  
 >  
 > **Repositorio:** https://github.com/apodgornyitba/tp_bio  
-> **Materia:** Introducción a la Bioinformática — Trabajo Práctico Cuatrimestral Parte 1
+> **Materia:** Introducción a la Bioinformática — Trabajo Práctico Cuatrimestral Partes 1 y 2
 
 ---
 
@@ -20,7 +20,7 @@
 | **Herramientas** | Python 3, BioPython, BLASTp, MAFFT, EMBOSS (getorf, patmatmotifs), PROSITE, Bash |
 | **Base de datos BLAST** | Swiss-Prot (curada) |
 | **Lenguaje** | BioPython (extensión `.py`; la consigna sugiere BioPerl `.pm` pero permite otros) |
-| **Ejercicio 4 y 5** | Implementados completamente (Análisis de dominios EMBOSS + Diseño de primers) |
+| **Ejercicio 4 y 5** | Implementados para corrida final con EMBOSS nativo obligatorio y diseño de primers sobre la variante configurada |
 
 ---
 
@@ -139,6 +139,7 @@ OMIM (investigación) → NCBI Entrez → GenBank mRNA
 | `Ex2_local.py` | BLASTp local contra Swiss-Prot (`BLAST_MODE=local` o `both`) |
 | `prepare_blast_db.py` | Descarga Swiss-Prot y crea base con `makeblastdb` |
 | `platform_tools.py` | Detección de ejecutables según SO |
+| `check_requirements.py` | Verificación local de BioPython, MSA, EMBOSS y BLAST local opcional |
 | `setup.sh` / `setup.bat` | Crea entorno virtual e instala BioPython |
 
 ### 4.3 Detalle Ejercicio 1 (`Ex1.py`)
@@ -156,7 +157,7 @@ OMIM (investigación) → NCBI Entrez → GenBank mRNA
 - Un BLAST remoto **por cada** secuencia en el FASTA (6 en total).
 - Guarda XML individual en `blast_results/`.
 - Ordena por **menor E-value** del mejor hit.
-- Copia el mejor resultado a `blast_results.xml` y la secuencia ganadora a `query_best.fasta`.
+- Copia el mejor resultado a `blast_results.xml` y escribe en `query_best.fasta` la región CDS alineada por BLAST, recortando los aminoácidos extra del marco completo.
 
 ### 4.5 Detalle Ejercicio 3 (`Ex3.py`)
 
@@ -220,7 +221,7 @@ export ENTREZ_EMAIL="email@ejemplo.com"
 | Rank | Accession | Organismo | E-value | Bit score | Identidad |
 |------|-----------|-----------|---------|-----------|-----------|
 | 1 | P01308 | *Homo sapiens* (humano) | 3.36×10⁻⁷⁶ | 572 | 110/110 (100%) |
-| 2 | Q8HXV2 | *Gorilla gorilla* (gorila) | 2.07×10⁻⁷⁵ | 567 | 109/110 (99.1%) |
+| 2 | Q8HXV2 | *Pongo pygmaeus* (orangután) | 2.07×10⁻⁷⁵ | 567 | 109/110 (99.1%) |
 | 3 | P30410 | *Pan troglodytes* (chimpancé) | 3.11×10⁻⁷⁵ | 566 | 108/110 (98.2%) |
 | 4 | P30406 | *Macaca fascicularis* (macaco) | 8.00×10⁻⁷⁴ | 557 | 108/110 (98.2%) |
 | 5 | P30407 | *Chlorocebus aethiops* (mono verde) | 3.40×10⁻⁷³ | 553 | 107/110 (97.3%) |
@@ -245,13 +246,13 @@ export ENTREZ_EMAIL="email@ejemplo.com"
 
 | # | ID | Especie / descripción |
 |---|-----|----------------------|
-| 0 | NM_000207.3_Forward_Frame_3 | Query — humano (traducción marco 3) |
+| 0 | NM_000207.3_Forward_Frame_3_CDS | Query — humano (CDS recortada desde marco 3) |
 | 1 | P01308 | Humano |
-| 2 | Q8HXV2 | Gorila |
+| 2 | Q8HXV2 | Orangután (*Pongo pygmaeus*) |
 | 3 | P30410 | Chimpancé |
 | 4 | P30406 | Macaco |
 | 5 | P30407 | Mono verde |
-| 6 | P01313 | Loris (*Cricetulus* / loris) |
+| 6 | P01313 | Hámster chino (*Cricetulus longicaudatus*) |
 | 7 | P01323 | Rata insulina-2 |
 | 8 | P01322 | Rata insulina-1 |
 | 9 | P01321 | Perro |
@@ -263,21 +264,20 @@ export ENTREZ_EMAIL="email@ejemplo.com"
 - Motivos GFFYTPK y SLYQLENYCN conservados entre primates.
 
 **Regiones variables:**
-- Extremo N-terminal de la query: diferencias por traducir el marco completo vs. proteína Swiss-Prot que inicia en Met1.
-- Roedores (rata): más sustituciones y gaps que primates.
-- Cola C-terminal de la query: residuos extra por traducción del marco hasta el final del mRNA.
+- Query recortada: `query_best.fasta` queda restringida a la región CDS alineada por BLAST (aa 20-129 del marco completo), sin aminoácidos traducidos desde UTRs ni stop final.
+- Roedores y hámster chino: más sustituciones y gaps que primates cercanos.
 
 **Conclusión MSA:** Núcleo de insulina muy conservado entre especies del top 10; divergencia mayor en taxones más lejanos (roedores) sin perder función hormonal.
 
 ### 5.6 Ejercicio 4 — Análisis de Dominios con EMBOSS y PROSITE
 Para caracterizar funcionalmente los marcos de lectura obtenidos en el Ejercicio 1, se realizó un análisis de dominios estructurado:
-1. **Extracción y ORFs**: Se extrajo la secuencia completa de nucleótidos del transcripto (`NM_000207.3`) en formato FASTA (`NM_000207_nucleotides.fasta`). A través de `getorf` (EMBOSS), se obtuvieron 22 marcos abiertos de lectura (ORFs) potenciales en ambas hebras (3 forward + 3 reverse).
-2. **Descarga de Motivos**: Se descargó la base de datos de motivos de proteínas de referencia **PROSITE** (`prosite.dat`, ~24 MB).
-3. **Escaneo de Dominios con `patmatmotifs`**: Se escaneó cada uno de los 22 ORFs generados en búsqueda de firmas biológicas estructuradas.
-4. **Fallo / Robustez**: Para garantizar el funcionamiento en cualquier sistema que no posea localmente instalada la suite EMBOSS, el pipeline cuenta con un **fallback en Python puro** que simula exactamente el procesamiento de ORFs y traduce las reglas sintácticas de PROSITE (p. ej., `C-C-{P}-{P}-x-C-[STDNEKPI]-...`) a expresiones regulares compiladas.
+1. **Extracción y ORFs**: Se extrajo la secuencia completa de nucleótidos del transcripto (`NM_000207.3`) en formato FASTA (`NM_000207_nucleotides.fasta`). En la corrida final debe ejecutarse `getorf` de EMBOSS con `REQUIRE_EMBOSS=1` o `--require-emboss` para obtener los ORFs potenciales en ambas hebras.
+2. **Descarga de Motivos**: Se descargó la base de datos de motivos de proteínas de referencia **PROSITE** (`prosite.dat` y `prosite.doc`) y se preparó el índice local usado por EMBOSS.
+3. **Escaneo de Dominios con `patmatmotifs`**: Se escanearon los 14 ORFs generados por `getorf` nativo en búsqueda de firmas biológicas estructuradas.
+4. **Modo de robustez**: El fallback Python queda disponible para desarrollo, pero no debe usarse como evidencia principal de entrega si la consigna exige EMBOSS instalado.
 
 **Resultados obtenidos:**
-Se encontraron 37 hits de dominios funcionales (como sitios de fosforilación por PKC y CK2, sitios de miristoilación, etc.). El hallazgo más significativo tuvo lugar en el ORF **`NM_000207.3_8`** (que coincide exactamente con la traducción biológica de la insulina, marco Forward 3), donde se detectó con máxima significancia la **firma de la familia de la insulina** (Insulin family signature, PROSITE ID: `INSULIN`, Accession: `PS00262`):
+La salida nativa de `patmatmotifs` reportó 3 hits de motivos PROSITE: una firma **INSULIN** y dos señales **AMIDATION**. El hallazgo biológicamente más relevante tuvo lugar en el ORF **`NM_000207.3_4`** (ORF forward que contiene la región codificante de la preproinsulina identificada por BLAST), donde se detectó la **firma de la familia de la insulina** (Insulin family signature, PROSITE ID: `INSULIN`, Accession: `PS00262`):
 - **Coordenadas**: Residuos 114 a 128
 - **Secuencia encontrada**: `C-C-T-S-I-C-S-L-Y-Q-L-E-N-Y-C`
 - **Patrón PROSITE**: `C-C-{P}-{P}-x-C-[STDNEKPI]-x(3)-[LIVMFS]-x(3)-C`
@@ -285,27 +285,19 @@ Se encontraron 37 hits de dominios funcionales (como sitios de fosforilación po
 Esta detección corrobora formal y funcionalmente que la secuencia es preproinsulina humana activa, validando de forma autónoma la predicción por homología de BLAST.
 
 ### 5.7 Ejercicio 5 — Diseño de Primers (parámetros de qPCR)
-A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se diseñó un set de primers de PCR/qPCR altamente específicos bajo las estrictas restricciones de la consigna.
+A partir del transcripto `NM_000207.3` (465 pb), el script aplica la variante patogénica configurada `NM_000207.3(INS):c.125T>C (p.Val42Ala)`, asociada a MODY10 (`rs886037863`), y prioriza primers/pares F-R cuyo amplicón flanquea esa posición. Esto alinea el diseño con el objetivo de detectar la variante del mensajero en pacientes, no solo el transcripto de referencia WT.
 - **Parámetros configurados (`primer_config.json`)**:
   - Tamaño: 18 a 24 pares de bases.
   - Contenido GC: 50% mínimo, 60% máximo.
   - Extremos terminales (5' y 3'): Exclusión estricta de G o C (deben terminar/iniciar con A o T).
   - Temperatura de melting ($T_m$): $\le 67^\circ\text{C}$.
-- **Resultados**:
-  El script analizó un total de 314 secuencias candidatas (157 Forward y 157 Reverse) y aplicó filtros secuenciales. El top 5 de primers seleccionados (ordenados por mayor proximidad a la temperatura ideal de PCR de 60.0°C) es el siguiente:
-
-| N° | Sentido | Rango (bp) | Largo | GC % | Tm (°C) | Secuencia (5' -> 3') |
-|---|---|---|---|---|---|---|
-| **1** | Forward | 14-37 | 24 | 54.17% | 60.00°C | `AGGCTGCATCAGAAGAGGCCATCA` |
-| **2** | Reverse | 14-37 | 24 | 54.17% | 60.00°C | `TGATGGCCTCTTCTGATGCAGCCT` |
-| **3** | Forward | 355-378 | 24 | 58.33% | 59.93°C | `TCTGCTCCCTCTACCAGCTGGAGA` |
-| **4** | Reverse | 355-378 | 24 | 58.33% | 59.93°C | `TCTCCAGCTGGTAGAGGGAGCAGA` |
-| **5** | Forward | 48-69 | 22 | 59.09% | 60.11°C | `TGTCCTTCTGCCATGGCCCTGT` |
+- **Resultados generados**:
+  El reporte `primer_results/primers_report.txt` muestra 292 candidatos, 112 pares que flanquean la variante y 5 primers seleccionados bajo las restricciones de longitud, GC, extremos y Tm. El mejor par amplifica el rango 48-207 bp, que contiene la variante en el nt 184.
 
 **Análisis físico-químico:**
 - **Especificidad de Extremos**: Ningún primer termina en G o C (todos inician/finalizan en A/T), lo cual evita la formación de dímeros estables de primers ("primer-dimers") y falsos cebados inespecíficos en sus extremos 3'.
 - **Uniformidad de Tm**: Las $T_m$ están óptimamente calibradas alrededor de 60°C, asegurando una hibridación altamente eficiente en protocolos estandarizados de ciclado térmico.
-- **Parametrización**: Los parámetros de diseño se definen de forma dinámica desde un archivo JSON (`primer_config.json`), permitiendo la adaptación inmediata a cualquier otro gen de interés o condiciones de laboratorio modificadas.
+- **Parametrización**: Los parámetros de diseño y la variante se definen de forma dinámica desde un archivo JSON (`primer_config.json`), permitiendo adaptar el análisis a otro gen, otra variante o condiciones de laboratorio modificadas.
 
 ---
 
@@ -319,9 +311,10 @@ A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se 
 - `Ex2_local.py` — Corre BLASTp local contra Swiss-Prot
 - `Ex3.py` — Parsea hits, los descarga y corre MSA (MAFFT)
 - `Ex4.py` — Realiza traducción de ORFs (getorf) y escaneo de PROSITE (patmatmotifs)
-- `Ex5.py` — Diseña primers basándose en restricciones estrictas
+- `Ex5.py` — Diseña primers sobre la variante configurada y prioriza pares que la flanquean
 - `run_pipeline.py` — Orquestador multiplataforma de la pipeline (Paso 0 a Paso 5)
 - `run_pipeline.sh` / `run_pipeline.bat` — Wrappers de ejecución
+- `check_requirements.py` — Verifica dependencias locales antes de correr la entrega final
 - `setup.sh` / `setup.bat` — Scripts de configuración e instalación
 
 ### 6.2 Datos generados
@@ -331,7 +324,7 @@ A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se 
 - `frame_annotation.txt` — Anotación del marco CDS biológico
 - `blast_results/` — XML individuales por marco y resumen de BLAST
 - `blast_results.xml` — BLAST del mejor marco (Forward 3)
-- `query_best.fasta` — Secuencia biológica query para MSA
+- `query_best.fasta` — Secuencia CDS recortada desde el mejor marco para MSA
 - `msa_input.fasta` — 11 secuencias combinadas para alineamiento
 - `msa_output.afa` — Alineamiento múltiple generado por MAFFT/MUSCLE
 - `prosite.dat` — Base de datos local de PROSITE (~24 MB)
@@ -359,12 +352,12 @@ A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se 
 | mRNA maduro sin intrones | ✅ | NM_000207 |
 | Script Ej. 2 BLAST por secuencia | ✅ | `Ex2_a.py`, 6 BLAST |
 | BLAST remoto | ✅ | NCBI qblast |
-| BLAST local | ✅ | `Ex2_local.py` + `prepare_blast_db.py` (`BLAST_MODE=both`) |
+| BLAST local | Opcional | `Ex2_local.py` + `prepare_blast_db.py` (`BLAST_MODE=both`) si se busca puntaje extra |
 | Interpretación BLAST (2.b) | ✅ | `interpretacion_blast.md` |
 | Ej. 3 top 10 + MSA | ✅ | `Ex3.py` + MAFFT |
 | Interpretación MSA | ✅ | `interpretacion_msa.md` |
-| Ej. 4 EMBOSS local + PROSITE | ✅ | `Ex4.py` (getorf + patmatmotifs con fallback) |
-| Ej. 5 Diseño de primers parametrizado | ✅ | `Ex5.py` (JSON config + análisis de extremos) |
+| Ej. 4 EMBOSS local + PROSITE | ✅ | Corrida final con `--require-emboss`: getorf + patmatmotifs nativos |
+| Ej. 5 Diseño de primers parametrizado | ✅ | `Ex5.py` aplica la variante configurada y prioriza pares que la flanquean |
 | Automatización Bash / Python | ✅ | `run_pipeline.py` y wrappers `.sh` / `.bat` |
 | Descripción y cómo ejecutar | ✅ | `README.md` |
 | Exposición 10 min investigación | ⏳ | Pendiente del grupo (slides) |
@@ -376,9 +369,10 @@ A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se 
 1. **BLAST local opcional:** Requiere instalar BLAST+ y ejecutar `prepare_blast_db.py` (~150 MB).
 2. **MAFFT en lugar de MUSCLE:** En macOS Homebrew no hay paquete `muscle`; MAFFT cumple el mismo rol para MSA.
 3. **Traducción del marco completo:** Ex1 traduce todo el marco (con stops `*`), no solo el ORF más largo; el marco 3 aun así alinea 100% con insulina en la región del CDS.
-4. **Query MSA vs Swiss-Prot:** La query incluye algunos aminoácidos extra en extremos respecto a P01308 por traducir el marco completo del mRNA.
-5. **Fallbacks de Robustez (Paso 4 y 5):** Dado que instalar la suite EMBOSS en sistemas modernos puede requerir privilegios de superusuario o configurar paths de bases de datos complejos, se desarrollaron fallbacks de alta precisión en Python puro. Esto permite ejecutar el pipeline en cualquier sistema operativo con BioPython estándar sin sacrificar el soporte nativo de EMBOSS si este se encuentra presente.
+4. **Query MSA vs Swiss-Prot:** `query_best.fasta` se recorta a la región CDS alineada por BLAST antes del MSA, evitando el ruido del marco completo.
+5. **Fallbacks de Robustez:** El fallback Python de EMBOSS queda como soporte de desarrollo; para la entrega final usar `REQUIRE_EMBOSS=1` para no aceptar resultados sin EMBOSS nativo.
 6. **Filtro estricto de extremos terminales de Primers:** La restricción de no poseer G o C en extremos 5' y 3' se implementó con un filtro lógico bidireccional, garantizando cebadores con menor propensión al hairpin y homodímeros.
+7. **Diseño sobre variante:** `primer_config.json` define `rs886037863` (`c.125T>C`), que se aplica al transcripto antes de buscar primers y pares F/R flanqueantes.
 
 ---
 
@@ -392,7 +386,7 @@ A partir del transcripto `NM_000207.3` (465 pb) de la variante seleccionada, se 
 6. Hits a primates: conservación evolutiva e interpretación biológica del E-value.
 7. MSA: regiones conservadas (cisteínas para puentes disulfuro, cadenas A/B).
 8. **Análisis de Dominios (EMBOSS)**: Confirmación de la firma biológica de la insulina (`PS00262`) en la secuencia traducida de forma autónoma.
-9. **Diseño de Primers**: Racional físico-químico detrás del diseño (evitar G/C en extremos, calibración de Tm y GC, y parametrización mediante JSON).
+9. **Diseño de Primers**: Racional físico-químico detrás del diseño y foco en la variante `rs886037863` (amplicones que la flanquean, evitar G/C en extremos, calibración de Tm y GC, parametrización JSON).
 10. Conclusión: validación del dogma central mediante herramientas bioinformáticas integradas y automatizadas.
 
 ---

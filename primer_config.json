@@ -5,5 +5,18 @@
   "max_gc": 60.0,
   "avoid_gc_ends": true,
   "max_tm": 67.0,
-  "num_primers": 5
+  "target_tm": 60.0,
+  "num_primers": 5,
+  "num_primer_pairs": 5,
+  "min_amplicon_size": 70,
+  "max_amplicon_size": 180,
+  "max_pair_tm_diff": 2.0,
+  "variant": {
+    "name": "NM_000207.3(INS):c.125T>C (p.Val42Ala)",
+    "rsid": "rs886037863",
+    "disease": "MODY10",
+    "coding_position": 125,
+    "ref": "T",
+    "alt": "C"
+  }
 }

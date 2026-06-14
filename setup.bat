@@ -11,9 +11,14 @@ echo.
 echo Listo. Siguiente:
 echo   .venv\Scripts\activate.bat
 echo   set ENTREZ_EMAIL=tu@email.com
+echo   set REQUIRE_EMBOSS=1
 echo.
 echo BLAST+ : instalar desde NCBI y agregar al PATH
 echo MSA    : conda install -c bioconda mafft
+echo EMBOSS : conda install -c bioconda emboss
+echo.
+echo Verificar herramientas:
+echo   python check_requirements.py
 echo.
 echo   set BLAST_MODE=both
 echo   run_pipeline.bat

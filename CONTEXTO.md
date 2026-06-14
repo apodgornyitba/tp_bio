@@ -14,7 +14,7 @@
 | **Gen** | **INS** (insulina, *Homo sapiens*) |
 | **Transcripto principal** | **NM_000207.3** (mRNA maduro, sin intrones) |
 | **Proteína** | Preproinsulina → insulina (UniProt **P01308**) |
-| **Herramientas** | Python, BioPython, BLAST, MAFFT/MUSCLE, EMBOSS (o fallback), pipeline Bash/Python |
+| **Herramientas** | Python, BioPython, BLAST, MAFFT/MUSCLE, EMBOSS nativo para entrega final, pipeline Bash/Python |
 
 ---
 
@@ -25,7 +25,7 @@
 | **Código Ej. 1–5** | ✅ Completo |
 | **Pipeline automatizado** | ✅ `run_pipeline.py` (Linux/macOS/Windows) |
 | **Outputs Parte 1** | ✅ GenBank, FASTA, BLAST, MSA |
-| **Outputs Parte 2** | ✅ EMBOSS/PROSITE, primers |
+| **Outputs Parte 2** | ✅ EMBOSS nativo + primers con variante configurada |
 | **Interpretaciones BLAST/MSA** | ✅ `interpretacion_blast.md`, `interpretacion_msa.md` |
 | **Ejercicio 6 (bases de datos)** | ✅ `ejercicio6_bases_datos.md` |
 | **Informe base** | ✅ `INFORME_PROYECTO.md` |
@@ -76,19 +76,19 @@
 ### Ejercicio 2 (BLAST remoto)
 - Marco ganador: **Forward_Frame_3**.
 - Mejor hit: insulina humana **P01308**, E-value **~10⁻⁷⁶**, **100% identidad**.
-- Top hits: primates (gorila, chimpancé, macacos).
+- Top hits: primates (humano, orangután, chimpancé, macacos).
 
 ### Ejercicio 3 (MSA)
 - 11 secuencias (query + top 10 BLAST).
 - Núcleo de insulina **muy conservado**; más divergencia en roedores.
 
 ### Ejercicio 4 (EMBOSS / PROSITE)
-- 22 ORFs detectados; firma **INSULIN (PS00262)** en el ORF biológico correcto.
-- Puede correr con EMBOSS nativo o **fallback Python** (ver línea `Python Fallback` en output).
+- 14 ORFs detectados por `getorf` nativo; firma **INSULIN (PS00262)** en `NM_000207.3_4`.
+- Para entrega, correr con EMBOSS nativo (`REQUIRE_EMBOSS=1`) para evitar evidencia basada en fallback.
 
 ### Ejercicio 5 (Primers)
-- 5 primers sobre **NM_000207** (18–24 bp, GC 50–60%, Tm ≤ 67°C).
-- Config: `primer_config.json` → reporte: `primer_results/primers_report.txt`.
+- 5 primers sobre **NM_000207.3 con la variante c.125T>C aplicada** (18–24 bp, GC 50–60%, Tm ≤ 67°C).
+- Config: `primer_config.json` → reporte regenerado en `primer_results/primers_report.txt`.
 
 ### Ejercicio 6
 - Gen **INS** en NCBI Gene: https://www.ncbi.nlm.nih.gov/gene/3630
@@ -107,7 +107,9 @@ cd tp_bio
 ./setup.sh && source .venv/bin/activate   # Linux/macOS
 # setup.bat en Windows
 export ENTREZ_EMAIL="tu_email@ejemplo.com"
-brew install mafft                        # macOS (MSA)
+export REQUIRE_EMBOSS=1
+brew install mafft emboss                 # macOS (MSA + EMBOSS)
+python check_requirements.py
 ```
 
 ### Pipeline completo
@@ -124,11 +126,12 @@ brew install mafft                        # macOS (MSA)
 | `ENTREZ_EMAIL` | estudiante@itba.edu.ar | Obligatorio NCBI |
 | `BLAST_MODE` | `remote` | `remote`, `local`, `both` |
 | `BLAST_DB` | `./data/swissprot_db` | Base BLAST local |
+| `REQUIRE_EMBOSS` | — | `1` para exigir getorf + patmatmotifs nativos |
 
 ### Solo Parte 2 (si Parte 1 ya corrida)
 
 ```bash
-python Ex4.py NM_000207.gbk emboss_results
+python Ex4.py NM_000207.gbk emboss_results --require-emboss
 python Ex5.py NM_000207.gbk primer_config.json primer_results
 ```
 
@@ -141,6 +144,7 @@ python Ex5.py NM_000207.gbk primer_config.json primer_results
 fetch_data.py    Ex1.py    Ex2_a.py    Ex2_local.py    Ex3.py
 Ex4.py           Ex5.py    prepare_blast_db.py
 blast_common.py  platform_tools.py
+check_requirements.py
 run_pipeline.py  run_pipeline.sh  run_pipeline.bat
 setup.sh         setup.bat
 ```
@@ -184,7 +188,7 @@ ejercicio6_bases_datos.md
 
 1. **Slides presentación (Ej. 7)** — 10 min, biología, no código.
 2. **Ensayo oral** — repartir entre integrantes.
-3. **Opcional:** correr Ex4 con EMBOSS real en Linux (`sudo apt install emboss`).
+3. **Antes de entregar:** correr Ex4 con EMBOSS real (`sudo apt install emboss`, `brew install emboss` o `conda install -c bioconda emboss`).
 4. **Opcional:** informe PDF final a partir de `INFORME_PROYECTO.md` + `ejercicio6_bases_datos.md`.
 
 ### Estructura sugerida presentación (10 min)

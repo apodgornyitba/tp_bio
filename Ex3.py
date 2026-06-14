@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import re
 import subprocess
 import sys
 from Bio.Blast import NCBIXML
@@ -9,6 +10,9 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
 from platform_tools import find_msa_tool, print_install_hints
+
+
+ACCESSION_RE = re.compile(r"\b([A-Z][0-9A-Z]{5}(?:\.\d+)?)\b")
 
 
 def run_muscle(muscle_bin, msa_input, msa_output):
@@ -39,6 +43,21 @@ def run_mafft(mafft_bin, msa_input, msa_output):
         )
 
 
+def accession_from_alignment(alignment):
+    """Extract a real protein accession from remote or local BLAST XML."""
+    title_parts = alignment.title.split("|")
+    if len(title_parts) >= 2 and title_parts[0] in {"sp", "tr"}:
+        return title_parts[1].split(".")[0]
+
+    # Local BLAST databases built with makeblastdb may expose numeric BL_ORD_ID
+    # accessions while keeping the real accession in the hit title/definition.
+    match = ACCESSION_RE.search(alignment.title)
+    if match:
+        return match.group(1).split(".")[0]
+
+    return alignment.accession
+
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: python Ex3.py <blast_results.xml> <query.fasta>")
@@ -47,6 +66,8 @@ def main():
     blast_xml = sys.argv[1]
     query_fasta = sys.argv[2]
     Entrez.email = os.environ.get("ENTREZ_EMAIL", "estudiante@itba.edu.ar")
+    Entrez.max_tries = 1
+    Entrez.sleep_between_tries = 0
 
     try:
         query_record = SeqIO.read(query_fasta, "fasta")
@@ -71,14 +92,7 @@ def main():
         if count >= 10:
             break
 
-        title_parts = alignment.title.split("|")
-        accession = ""
-        if len(title_parts) >= 2 and (
-            title_parts[0].startswith("sp") or title_parts[0].startswith("tr")
-        ):
-            accession = title_parts[1].split(".")[0]
-        else:
-            accession = alignment.accession
+        accession = accession_from_alignment(alignment)
 
         if accession in seen_accessions:
             continue

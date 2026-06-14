@@ -219,10 +219,10 @@ La tabla principal de interacciones génicas de NCBI para INS está **poco pobla
 
 | Pathway | ID | Relación |
 |---------|-----|----------|
-| **Type II diabetes mellitus** | hsa04910 | Deficiencia relativa de insulina / resistencia periférica |
+| **Type II diabetes mellitus** | hsa04930 | Deficiencia relativa de insulina / resistencia periférica |
 | **Maturity onset diabetes of the young** | hsa04950 | Incluye formas monogénicas como **MODY10 (INS)** |
 | **Insulin secretion** | hsa04911 | Secreción desde células β |
-| **Insulin signaling pathway** | hsa04910 (superpuesta) | Señalización downstream del receptor |
+| **Insulin signaling pathway** | hsa04910 | Señalización downstream del receptor |
 
 **Link KEGG gen:** https://www.genome.jp/dbget-bin/www_bget?hsa:3630
 

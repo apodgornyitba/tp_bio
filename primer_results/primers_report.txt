@@ -1,44 +1,37 @@
 ======================================================================
  DISEÑO DE PRIMERS PARA TRANSCRIPTO INS (NM_000207.3)
 ======================================================================
-Secuencia: NM_000207.3 (465 bp)
+Secuencia base: NM_000207.3 (465 bp)
+Variante aplicada: NM_000207.3(INS):c.125T>C (p.Val42Ala) | transcript nt 184 | T>C | rs=rs886037863
 Parámetros de Diseño:
   - Tamaño: 18-24 bp
   - Contenido GC: 50.0%-60.0%
   - Evitar GC en extremos terminales (5' y 3'): Sí
   - Temperatura de melting máxima: 67.0°C
-  - Candidatos totales encontrados: 314
+  - Amplicón esperado: 70-180 bp
+  - Pares que flanquean la variante: 112
+  - Candidatos totales encontrados: 292
 ======================================================================
 
-TOP 5 PRIMERS SELECCIONADOS (Ordenados por Tm más cercana a 60°C):
+TOP PRIMERS SELECCIONADOS (priorizando pares que flanquean la variante):
 ------------------------------------------------------------------------------------------
 N°  | Sentido  | Rango (bp)  | Largo | GC %   | Tm (°C) | Secuencia (5' -> 3')    
 ------------------------------------------------------------------------------------------
-1   | Forward  | 14-37       | 24    | 54.17  | 60.0    | AGGCTGCATCAGAAGAGGCCATCA
-2   | Reverse  | 14-37       | 24    | 54.17  | 60.0    | TGATGGCCTCTTCTGATGCAGCCT
-3   | Forward  | 355-378     | 24    | 58.33  | 59.93   | TCTGCTCCCTCTACCAGCTGGAGA
-4   | Reverse  | 355-378     | 24    | 58.33  | 59.93   | TCTCCAGCTGGTAGAGGGAGCAGA
-5   | Forward  | 48-69       | 22    | 59.09  | 60.11   | TGTCCTTCTGCCATGGCCCTGT  
+1   | Forward  | 48-69       | 22    | 59.09  | 60.11   | TGTCCTTCTGCCATGGCCCTGT  
+2   | Reverse  | 186-207     | 22    | 59.09  | 60.18   | AGAAGAAGCCTCGTTCCCCGCA  
+3   | Forward  | 46-67       | 22    | 59.09  | 59.85   | ACTGTCCTTCTGCCATGGCCCT  
+4   | Reverse  | 186-208     | 23    | 56.52  | 59.68   | TAGAAGAAGCCTCGTTCCCCGCA 
+5   | Forward  | 122-143     | 22    | 54.55  | 59.79   | AGCCGCAGCCTTTGTGAACCAA  
 ------------------------------------------------------------------------------------------
 
-TOP 5 PRIMERS FORWARD CANDIDATOS:
-------------------------------------------------------------------------------------------
-N°  | Sentido  | Rango (bp)  | Largo | GC %   | Tm (°C) | Secuencia (5' -> 3')    
-------------------------------------------------------------------------------------------
-1   | Forward  | 14-37       | 24    | 54.17  | 60.0    | AGGCTGCATCAGAAGAGGCCATCA
-2   | Forward  | 355-378     | 24    | 58.33  | 59.93   | TCTGCTCCCTCTACCAGCTGGAGA
-3   | Forward  | 48-69       | 22    | 59.09  | 60.11   | TGTCCTTCTGCCATGGCCCTGT  
-4   | Forward  | 316-338     | 23    | 52.17  | 59.87   | TGCAGAAGCGTGGCATTGTGGAA 
-5   | Forward  | 46-67       | 22    | 59.09  | 59.85   | ACTGTCCTTCTGCCATGGCCCT  
-------------------------------------------------------------------------------------------
+TOP PARES FORWARD/REVERSE QUE FLANQUEAN LA VARIANTE:
+------------------------------------------------------------------------------------------------------------------------
+N°  | Amplicón    | Tm diff | Forward (5->3)             | Reverse (5->3)            
+------------------------------------------------------------------------------------------------------------------------
+1   | 48-207 (160 bp) | 0.07    | TGTCCTTCTGCCATGGCCCTGT     | AGAAGAAGCCTCGTTCCCCGCA    
+2   | 46-208 (163 bp) | 0.17    | ACTGTCCTTCTGCCATGGCCCT     | TAGAAGAAGCCTCGTTCCCCGCA   
+3   | 122-208 (87 bp) | 0.11    | AGCCGCAGCCTTTGTGAACCAA     | TAGAAGAAGCCTCGTTCCCCGCA   
+4   | 46-207 (162 bp) | 0.33    | ACTGTCCTTCTGCCATGGCCCT     | AGAAGAAGCCTCGTTCCCCGCA    
+5   | 122-207 (86 bp) | 0.39    | AGCCGCAGCCTTTGTGAACCAA     | AGAAGAAGCCTCGTTCCCCGCA    
+------------------------------------------------------------------------------------------------------------------------
 
-TOP 5 PRIMERS REVERSE CANDIDATOS:
-------------------------------------------------------------------------------------------
-N°  | Sentido  | Rango (bp)  | Largo | GC %   | Tm (°C) | Secuencia (5' -> 3')    
-------------------------------------------------------------------------------------------
-1   | Reverse  | 14-37       | 24    | 54.17  | 60.0    | TGATGGCCTCTTCTGATGCAGCCT
-2   | Reverse  | 355-378     | 24    | 58.33  | 59.93   | TCTCCAGCTGGTAGAGGGAGCAGA
-3   | Reverse  | 48-69       | 22    | 59.09  | 60.11   | ACAGGGCCATGGCAGAAGGACA  
-4   | Reverse  | 316-338     | 23    | 52.17  | 59.87   | TTCCACAATGCCACGCTTCTGCA 
-5   | Reverse  | 46-67       | 22    | 59.09  | 59.85   | AGGGCCATGGCAGAAGGACAGT  
-------------------------------------------------------------------------------------------

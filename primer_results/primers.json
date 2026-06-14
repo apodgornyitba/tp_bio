@@ -6,80 +6,38 @@
     "max_gc": 60.0,
     "avoid_gc_ends": true,
     "max_tm": 67.0,
-    "num_primers": 5
+    "target_tm": 60.0,
+    "num_primers": 5,
+    "num_primer_pairs": 5,
+    "min_amplicon_size": 70,
+    "max_amplicon_size": 180,
+    "max_pair_tm_diff": 2.0,
+    "variant": {
+      "name": "NM_000207.3(INS):c.125T>C (p.Val42Ala)",
+      "rsid": "rs886037863",
+      "disease": "MODY10",
+      "coding_position": 125,
+      "ref": "T",
+      "alt": "C"
+    }
+  },
+  "variant": {
+    "name": "NM_000207.3(INS):c.125T>C (p.Val42Ala)",
+    "rsid": "rs886037863",
+    "disease": "MODY10",
+    "coding_position": 125,
+    "transcript_position": 184,
+    "ref": "T",
+    "alt": "C"
   },
   "summary": {
-    "total_forward_candidates": 157,
-    "total_reverse_candidates": 157,
-    "total_candidates": 314
+    "total_forward_candidates": 146,
+    "total_reverse_candidates": 146,
+    "total_candidates": 292,
+    "variant_flanking_pairs": 112
   },
   "selected_primers": [
     {
-      "sequence": "AGGCTGCATCAGAAGAGGCCATCA",
-      "length": 24,
-      "gc_percent": 54.17,
-      "tm": 60.0,
-      "start": 14,
-      "end": 37,
-      "direction": "Forward"
-    },
-    {
-      "sequence": "TGATGGCCTCTTCTGATGCAGCCT",
-      "length": 24,
-      "gc_percent": 54.17,
-      "tm": 60.0,
-      "start": 14,
-      "end": 37,
-      "direction": "Reverse"
-    },
-    {
-      "sequence": "TCTGCTCCCTCTACCAGCTGGAGA",
-      "length": 24,
-      "gc_percent": 58.33,
-      "tm": 59.93,
-      "start": 355,
-      "end": 378,
-      "direction": "Forward"
-    },
-    {
-      "sequence": "TCTCCAGCTGGTAGAGGGAGCAGA",
-      "length": 24,
-      "gc_percent": 58.33,
-      "tm": 59.93,
-      "start": 355,
-      "end": 378,
-      "direction": "Reverse"
-    },
-    {
-      "sequence": "TGTCCTTCTGCCATGGCCCTGT",
-      "length": 22,
-      "gc_percent": 59.09,
-      "tm": 60.11,
-      "start": 48,
-      "end": 69,
-      "direction": "Forward"
-    }
-  ],
-  "top_5_forward": [
-    {
-      "sequence": "AGGCTGCATCAGAAGAGGCCATCA",
-      "length": 24,
-      "gc_percent": 54.17,
-      "tm": 60.0,
-      "start": 14,
-      "end": 37,
-      "direction": "Forward"
-    },
-    {
-      "sequence": "TCTGCTCCCTCTACCAGCTGGAGA",
-      "length": 24,
-      "gc_percent": 58.33,
-      "tm": 59.93,
-      "start": 355,
-      "end": 378,
-      "direction": "Forward"
-    },
-    {
       "sequence": "TGTCCTTCTGCCATGGCCCTGT",
       "length": 22,
       "gc_percent": 59.09,
@@ -89,13 +47,13 @@
       "direction": "Forward"
     },
     {
-      "sequence": "TGCAGAAGCGTGGCATTGTGGAA",
-      "length": 23,
-      "gc_percent": 52.17,
-      "tm": 59.87,
-      "start": 316,
-      "end": 338,
-      "direction": "Forward"
+      "sequence": "AGAAGAAGCCTCGTTCCCCGCA",
+      "length": 22,
+      "gc_percent": 59.09,
+      "tm": 60.18,
+      "start": 186,
+      "end": 207,
+      "direction": "Reverse"
     },
     {
       "sequence": "ACTGTCCTTCTGCCATGGCCCT",
@@ -105,53 +63,156 @@
       "start": 46,
       "end": 67,
       "direction": "Forward"
+    },
+    {
+      "sequence": "TAGAAGAAGCCTCGTTCCCCGCA",
+      "length": 23,
+      "gc_percent": 56.52,
+      "tm": 59.68,
+      "start": 186,
+      "end": 208,
+      "direction": "Reverse"
+    },
+    {
+      "sequence": "AGCCGCAGCCTTTGTGAACCAA",
+      "length": 22,
+      "gc_percent": 54.55,
+      "tm": 59.79,
+      "start": 122,
+      "end": 143,
+      "direction": "Forward"
     }
   ],
-  "top_5_reverse": [
+  "selected_primer_pairs": [
     {
-      "sequence": "TGATGGCCTCTTCTGATGCAGCCT",
-      "length": 24,
-      "gc_percent": 54.17,
-      "tm": 60.0,
-      "start": 14,
-      "end": 37,
-      "direction": "Reverse"
+      "forward": {
+        "sequence": "TGTCCTTCTGCCATGGCCCTGT",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 60.11,
+        "start": 48,
+        "end": 69,
+        "direction": "Forward"
+      },
+      "reverse": {
+        "sequence": "AGAAGAAGCCTCGTTCCCCGCA",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 60.18,
+        "start": 186,
+        "end": 207,
+        "direction": "Reverse"
+      },
+      "amplicon_start": 48,
+      "amplicon_end": 207,
+      "amplicon_size": 160,
+      "variant_position": 184,
+      "tm_diff": 0.07,
+      "score": 0.71
     },
     {
-      "sequence": "TCTCCAGCTGGTAGAGGGAGCAGA",
-      "length": 24,
-      "gc_percent": 58.33,
-      "tm": 59.93,
-      "start": 355,
-      "end": 378,
-      "direction": "Reverse"
+      "forward": {
+        "sequence": "ACTGTCCTTCTGCCATGGCCCT",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 59.85,
+        "start": 46,
+        "end": 67,
+        "direction": "Forward"
+      },
+      "reverse": {
+        "sequence": "TAGAAGAAGCCTCGTTCCCCGCA",
+        "length": 23,
+        "gc_percent": 56.52,
+        "tm": 59.68,
+        "start": 186,
+        "end": 208,
+        "direction": "Reverse"
+      },
+      "amplicon_start": 46,
+      "amplicon_end": 208,
+      "amplicon_size": 163,
+      "variant_position": 184,
+      "tm_diff": 0.17,
+      "score": 1.02
     },
     {
-      "sequence": "ACAGGGCCATGGCAGAAGGACA",
-      "length": 22,
-      "gc_percent": 59.09,
-      "tm": 60.11,
-      "start": 48,
-      "end": 69,
-      "direction": "Reverse"
+      "forward": {
+        "sequence": "AGCCGCAGCCTTTGTGAACCAA",
+        "length": 22,
+        "gc_percent": 54.55,
+        "tm": 59.79,
+        "start": 122,
+        "end": 143,
+        "direction": "Forward"
+      },
+      "reverse": {
+        "sequence": "TAGAAGAAGCCTCGTTCCCCGCA",
+        "length": 23,
+        "gc_percent": 56.52,
+        "tm": 59.68,
+        "start": 186,
+        "end": 208,
+        "direction": "Reverse"
+      },
+      "amplicon_start": 122,
+      "amplicon_end": 208,
+      "amplicon_size": 87,
+      "variant_position": 184,
+      "tm_diff": 0.11,
+      "score": 1.02
     },
     {
-      "sequence": "TTCCACAATGCCACGCTTCTGCA",
-      "length": 23,
-      "gc_percent": 52.17,
-      "tm": 59.87,
-      "start": 316,
-      "end": 338,
-      "direction": "Reverse"
+      "forward": {
+        "sequence": "ACTGTCCTTCTGCCATGGCCCT",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 59.85,
+        "start": 46,
+        "end": 67,
+        "direction": "Forward"
+      },
+      "reverse": {
+        "sequence": "AGAAGAAGCCTCGTTCCCCGCA",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 60.18,
+        "start": 186,
+        "end": 207,
+        "direction": "Reverse"
+      },
+      "amplicon_start": 46,
+      "amplicon_end": 207,
+      "amplicon_size": 162,
+      "variant_position": 184,
+      "tm_diff": 0.33,
+      "score": 1.03
     },
     {
-      "sequence": "AGGGCCATGGCAGAAGGACAGT",
-      "length": 22,
-      "gc_percent": 59.09,
-      "tm": 59.85,
-      "start": 46,
-      "end": 67,
-      "direction": "Reverse"
+      "forward": {
+        "sequence": "AGCCGCAGCCTTTGTGAACCAA",
+        "length": 22,
+        "gc_percent": 54.55,
+        "tm": 59.79,
+        "start": 122,
+        "end": 143,
+        "direction": "Forward"
+      },
+      "reverse": {
+        "sequence": "AGAAGAAGCCTCGTTCCCCGCA",
+        "length": 22,
+        "gc_percent": 59.09,
+        "tm": 60.18,
+        "start": 186,
+        "end": 207,
+        "direction": "Reverse"
+      },
+      "amplicon_start": 122,
+      "amplicon_end": 207,
+      "amplicon_size": 86,
+      "variant_position": 184,
+      "tm_diff": 0.39,
+      "score": 1.17
     }
   ]
 }

@@ -28,7 +28,7 @@ Comparar los **6 marcos de lectura** del Ejercicio 1 y determinar cuál correspo
    - E-value: 3.36×10⁻⁷⁶ | Bit score: 572 | Identidad: 110/110 (100%)
    - Es la misma proteína que la anotada para el gen INS; valida la traducción.
 
-2. **sp\|Q8HXV2.1 – Insulina (Gorilla gorilla)**
+2. **sp\|Q8HXV2.1 – Insulina (Pongo pygmaeus, orangután)**
    - E-value: 2.07×10⁻⁷⁵ | Bit score: 567 | Identidad: 109/110 (99.1%)
    - Homólogo muy cercano; esperable por parentesco evolutivo con humanos.
 
@@ -41,7 +41,7 @@ Comparar los **6 marcos de lectura** del Ejercicio 1 y determinar cuál correspo
 5. **sp\|P30407.1 – Insulina (Chlorocebus aethiops, mono verde)**
    - E-value: 3.40×10⁻⁷³ | Bit score: 553 | Identidad: 107/110 (97.3%)
 
-Todos los mejores hits son **preproinsulinas de primates**, lo cual confirma que la query es biológicamente correcta.
+Estos cinco mejores hits son **preproinsulinas de primates**, lo cual confirma que la query es biológicamente correcta. En el top 10 usado para el MSA también aparecen mamíferos no primates, como roedores y perro, útiles para comparar divergencia evolutiva.
 
 ## 4. Significado de los valores estadísticos
 

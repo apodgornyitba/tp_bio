@@ -11,12 +11,13 @@ Trabajo sobre el gen **INS (Insulina)** y **diabetes mellitus** (OMIM) - Impleme
 | Python 3.10+ | `python3`, `python3-venv` | `python3` | python.org |
 | BioPython | `pip install biopython` | igual | igual |
 | MSA | `sudo apt install mafft` o `muscle` | `brew install mafft` | `conda install -c bioconda mafft` |
-| BLAST+ (opcional local) | `sudo apt install ncbi-blast+` | [NCBI BLAST+](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) | Instalador NCBI + PATH |
-| EMBOSS (opcional) | `sudo apt install emboss` | `brew install emboss` | [EMBOSS](https://emboss.sourceforge.net/) |
+| BLAST+ (opcional local) | `sudo apt install ncbi-blast+` | [NCBI BLAST+](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) o `conda install -c bioconda blast` | Instalador NCBI + PATH o `conda install -c bioconda blast` |
+| EMBOSS (requerido para entrega final) | `sudo apt install emboss` | `conda install -c bioconda emboss` | `conda install -c bioconda emboss` |
 | Internet | NCBI Entrez + BLAST remoto + Descarga de PROSITE | igual | igual |
 
 > [!NOTE]
-> **Robustez del Pipeline:** Si la suite **EMBOSS** no está instalada localmente o falla, el pipeline cuenta con un **fallback en Python puro** de alta precisión para los programas `getorf` y `patmatmotifs` (incluye parser regex de `prosite.dat`). ¡El pipeline se ejecutará correctamente sin dependencias externas complejas!
+> **Entrega final:** usar `REQUIRE_EMBOSS=1` o `python Ex4.py ... --require-emboss` para demostrar que el Ejercicio 4 corre con **EMBOSS nativo** (`getorf` + `patmatmotifs`). El fallback Python queda solo como modo de desarrollo/portabilidad.
+> `patmatmotifs` requiere que PROSITE se prepare con `prosextract`; `Ex4.py` descarga `prosite.dat` y `prosite.doc`, genera el índice local en `.emboss_data/` y evita modificar la instalación de EMBOSS.
 
 ## Instalación rápida
 
@@ -28,7 +29,12 @@ cd tp_bio
 chmod +x setup.sh run_pipeline.sh
 ./setup.sh
 source .venv/bin/activate
+# Instalar antes herramientas del sistema:
+# Linux: sudo apt install mafft ncbi-blast+ emboss
+# macOS: brew install mafft && conda install -c bioconda emboss
+python check_requirements.py
 export ENTREZ_EMAIL="tu_email@ejemplo.com"
+export REQUIRE_EMBOSS=1
 ./run_pipeline.sh
 ```
 
@@ -39,7 +45,10 @@ git clone https://github.com/apodgornyitba/tp_bio.git
 cd tp_bio
 setup.bat
 .venv\Scripts\activate.bat
+conda install -c bioconda mafft blast emboss
+python check_requirements.py
 set ENTREZ_EMAIL=tu_email@ejemplo.com
+set REQUIRE_EMBOSS=1
 run_pipeline.bat
 ```
 
@@ -53,20 +62,21 @@ run_pipeline.bat
 
 ```bash
 # Solo remoto (default)
-export BLAST_MODE=remote
-./run_pipeline.sh
+./run_pipeline.sh --blast-mode remote
 
 # Remoto + local
-export BLAST_MODE=both
 python prepare_blast_db.py   # una vez (~150 MB descarga)
-./run_pipeline.sh
+./run_pipeline.sh --blast-mode both
+
+# Solo local, usando los XML/local FASTA locales también para el MSA
+./run_pipeline.sh --blast-mode local --msa-source local
 ```
 
 **Salidas BLAST:**
 - Remoto: `blast_results/`, `blast_results.xml`, `query_best.fasta`
 - Local: `blast_results_local/`, `blast_results_local.xml`, `query_best_local.fasta`
 
-El Ejercicio 3 usa los resultados **remotos** si existen; si solo corrés local, usa los locales.
+El Ejercicio 3 sigue la selección explícita de `--msa-source`. En modo `auto`, usa resultados locales cuando `--blast-mode=local`; en `remote` o `both`, usa los resultados remotos salvo que se indique `--msa-source local`.
 
 ## Preparar base BLAST local (opcional)
 
@@ -91,10 +101,11 @@ Orquestador multiplataforma: **`run_pipeline.py`**
 | 0 | `fetch_data.py` | `NM_000207.gbk` |
 | 1 | `Ex1.py` | `NM_000207_frames.fasta` (6 marcos) |
 | 2a | `Ex2_a.py` | `blast_results.xml` (remoto) |
-| 2b | `Ex2_local.py` | `blast_results_local.xml` (local, opcional) |
-| 3 | `Ex3.py` | `msa_output.afa` (Alineamiento múltiple) |
-| 4 | `Ex4.py` | `emboss_results/NM_000207_domains.patmatmotifs` (Dominios PROSITE) |
-| 5 | `Ex5.py` | `primer_results/primers.json` (Diseño de primers qPCR) |
+| 2 extra | `Ex2_local.py` | `blast_results_local.xml` (local, opcional) |
+| 2b | `interpretacion_blast.md` | Interpretación biológica y estadística del BLAST |
+| 3 | `Ex3.py` | `msa_output.afa` (MSA con query CDS recortada) |
+| 4 | `Ex4.py` | `emboss_results/NM_000207_domains.patmatmotifs` (Dominios PROSITE con EMBOSS nativo si `REQUIRE_EMBOSS=1`) |
+| 5 | `Ex5.py` | `primer_results/primers.json` (Diseño de primers qPCR sobre variante configurada) |
 
 ## Ejecución manual (paso a paso)
 
@@ -105,13 +116,15 @@ python fetch_data.py
 python Ex1.py NM_000207.gbk NM_000207_frames.fasta
 # Paso 2: Ejecutar BLASTp (remoto)
 python Ex2_a.py NM_000207_frames.fasta blast_results
-# Paso 3: Alinear hits con la consulta (MSA)
+# Paso 3: Alinear hits con la consulta CDS recortada por BLAST
 python Ex3.py blast_results.xml query_best.fasta
-# Paso 4: Análisis de Dominios con EMBOSS / PROSITE
-python Ex4.py NM_000207.gbk emboss_results
-# Paso 5: Diseño de Primers qPCR parametrizado
+# Paso 4: Análisis de Dominios con EMBOSS / PROSITE (falla si falta EMBOSS)
+python Ex4.py NM_000207.gbk emboss_results --require-emboss
+# Paso 5: Diseño de Primers qPCR parametrizado para la variante configurada
 python Ex5.py NM_000207.gbk primer_config.json primer_results
 ```
+
+Si existen outputs previos, estos comandos los sobrescriben con la versión actual: query CDS recortada para MSA, EMBOSS nativo obligatorio y primers enfocados en la variante `rs886037863`.
 
 ## Variables de entorno
 
@@ -119,16 +132,27 @@ python Ex5.py NM_000207.gbk primer_config.json primer_results
 |----------|---------|-----|
 | `ENTREZ_EMAIL` | estudiante@itba.edu.ar | Email obligatorio para NCBI |
 | `BLAST_MODE` | `remote` | `remote`, `local` o `both` |
+| `MSA_SOURCE` | `auto` | `auto`, `remote` o `local` para elegir qué BLAST alimenta el MSA |
 | `BLAST_DB` | `./data/swissprot_db` | Prefijo base BLAST local |
 | `SKIP_BLAST` | — | `1` para omitir BLAST (debug) |
+| `REQUIRE_EMBOSS` | `1` en wrappers | `1` para exigir `getorf` y `patmatmotifs` nativos |
 | `PYTHON` | `python3` / `sys.executable` | Intérprete a usar |
+
+Las mismas opciones también pueden pasarse como argumentos, y tienen prioridad sobre las variables de entorno:
+
+```bash
+python run_pipeline.py --blast-mode local --msa-source local --require-emboss
+python run_pipeline.py --blast-mode both --msa-source remote --entrez-email "tu_email@ejemplo.com"
+python run_pipeline.py --allow-emboss-fallback   # solo desarrollo
+```
 
 ## Entregables
 
 - Scripts Python + `run_pipeline.py` / `.sh` / `.bat`
 - Archivo de configuración: `primer_config.json`
+- Verificación local de dependencias: `check_requirements.py`
 - Outputs completos del pipeline (incluyendo `emboss_results/` y `primer_results/`)
-- Documento local descargado: `prosite.dat`
+- Documentos PROSITE descargados: `prosite.dat`, `prosite.doc`
 - `interpretacion_blast.md`, `interpretacion_msa.md`
 - `INFORME_PROYECTO.md` (informe completo de reporte integrado, base académica para la entrega)
 - Presentación oral: investigación del gen INS y diabetes (**sin código**, 10 min de exposición)
