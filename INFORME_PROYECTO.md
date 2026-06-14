@@ -54,7 +54,7 @@
 **Pedido:**
 - Realizar **BLAST** de una o varias secuencias (un BLAST por cada secuencia del FASTA).
 - Guardar el reporte BLAST en archivo(s).
-- Puede ser **remoto** o **local** (ambos dan más puntos; este proyecto usa solo remoto).
+- Puede ser **remoto** o **local** (ambos dan más puntos; este proyecto soporta ambos modos y conserva resultados remotos/locales cuando se ejecutan).
 - Entregar interpretación de resultados y cómo ejecutar.
 
 **Input:** `NM_000207_frames.fasta`  
@@ -360,7 +360,7 @@ A partir del transcripto `NM_000207.3` (465 pb), el script aplica la variante pa
 | Ej. 5 Diseño de primers parametrizado | ✅ | `Ex5.py` aplica la variante configurada y prioriza pares que la flanquean |
 | Automatización Bash / Python | ✅ | `run_pipeline.py` y wrappers `.sh` / `.bat` |
 | Descripción y cómo ejecutar | ✅ | `README.md` |
-| Exposición 10 min investigación | ⏳ | Pendiente del grupo (slides) |
+| Exposición 10 min investigación | ✅ | Borrador de slides y guion preparados; falta adaptar integrantes y ensayar |
 
 ---
 
