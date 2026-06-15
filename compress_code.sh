@@ -11,8 +11,6 @@ if [[ "$ARCHIVE" != /* ]]; then
 fi
 
 INCLUDE_FILES=(
-    "Pipfile"
-    "Pipfile.lock"
     "primer_config.json"
     "setup.sh"
     "setup.bat"
