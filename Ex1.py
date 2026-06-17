@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
@@ -46,6 +47,8 @@ def main():
 
     input_gbk = sys.argv[1]
     output_fasta = sys.argv[2]
+    output_fasta_path = Path(output_fasta)
+    output_fasta_path.parent.mkdir(parents=True, exist_ok=True)
 
     records = list(SeqIO.parse(input_gbk, "genbank"))
     if not records:
@@ -80,10 +83,10 @@ def main():
             )
             print(f"  {frame_name}: {len(translation)} aa (stops: {translation.count('*')})")
 
-    SeqIO.write(fasta_records, output_fasta, "fasta")
+    SeqIO.write(fasta_records, str(output_fasta_path), "fasta")
     print(f"\nGuardadas {len(fasta_records)} secuencias en {output_fasta}")
 
-    annotation_file = "frame_annotation.txt"
+    annotation_file = output_fasta_path.with_name("frame_annotation.txt")
     with open(annotation_file, "w") as f:
         f.write("\n".join(annotation_lines) + "\n")
         f.write(f"total_frames={len(fasta_records)}\n")

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+import argparse
 import os
 import re
 import subprocess
 import sys
+from pathlib import Path
 from Bio.Blast import NCBIXML
 from Bio import Entrez
 from Bio import SeqIO
@@ -59,12 +61,19 @@ def accession_from_alignment(alignment):
 
 
 def main():
-    if len(sys.argv) < 3:
-        print("Usage: python Ex3.py <blast_results.xml> <query.fasta>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Ejercicio 3 - MSA con query + top 10 hits")
+    parser.add_argument("blast_xml")
+    parser.add_argument("query_fasta")
+    parser.add_argument("--msa-input", default="msa_input.fasta")
+    parser.add_argument("--msa-output", default="msa_output.afa")
+    args = parser.parse_args()
 
-    blast_xml = sys.argv[1]
-    query_fasta = sys.argv[2]
+    blast_xml = args.blast_xml
+    query_fasta = args.query_fasta
+    msa_input = args.msa_input
+    msa_output = args.msa_output
+    Path(msa_input).parent.mkdir(parents=True, exist_ok=True)
+    Path(msa_output).parent.mkdir(parents=True, exist_ok=True)
     Entrez.email = os.environ.get("ENTREZ_EMAIL", "estudiante@itba.edu.ar")
     Entrez.max_tries = 1
     Entrez.sleep_between_tries = 0
@@ -112,11 +121,9 @@ def main():
             top10_records.append(record)
             count += 1
 
-    msa_input = "msa_input.fasta"
     SeqIO.write(top10_records, msa_input, "fasta")
     print(f"Saved {len(top10_records)} sequences to {msa_input}")
 
-    msa_output = "msa_output.afa"
     tool, tool_bin = find_msa_tool()
     if not tool:
         print("ERROR: No hay herramienta MSA (MUSCLE ni MAFFT).")

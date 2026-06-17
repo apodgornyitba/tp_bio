@@ -94,9 +94,13 @@ def trim_record_to_best_hsp(record, stats):
 def finalize_best_result(results, summary_path, xml_copy="blast_results.xml",
                          fasta_copy="query_best.fasta"):
     best = write_summary(summary_path, results)
-    Path(xml_copy).write_text(Path(best["xml_path"]).read_text(encoding="utf-8"), encoding="utf-8")
+    xml_copy = Path(xml_copy)
+    fasta_copy = Path(fasta_copy)
+    xml_copy.parent.mkdir(parents=True, exist_ok=True)
+    fasta_copy.parent.mkdir(parents=True, exist_ok=True)
+    xml_copy.write_text(Path(best["xml_path"]).read_text(encoding="utf-8"), encoding="utf-8")
     query_record = trim_record_to_best_hsp(best["record"], best["stats"])
-    SeqIO.write(query_record, fasta_copy, "fasta")
+    SeqIO.write(query_record, str(fasta_copy), "fasta")
     return best
 
 

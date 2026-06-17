@@ -70,10 +70,15 @@ def main():
             sys.exit(1)
 
     summary_path = output_dir / "blast_summary.txt"
-    best = finalize_best_result(results, summary_path)
+    best = finalize_best_result(
+        results,
+        summary_path,
+        xml_copy=output_dir.parent / "blast_results.xml",
+        fasta_copy=output_dir.parent / "query_best.fasta",
+    )
     print_interpretation(best)
     print(f"\nResumen: {summary_path}")
-    print("Salida principal: blast_results.xml, query_best.fasta")
+    print(f"Salida principal: {output_dir.parent / 'blast_results.xml'}, {output_dir.parent / 'query_best.fasta'}")
 
 
 if __name__ == "__main__":

@@ -443,13 +443,15 @@ def main():
     ROOT = Path(__file__).parent.resolve()
     input_gbk_path = ROOT / input_gbk
     output_dir_path = ROOT / output_dir
+    output_root = output_dir_path.parent
+    output_root.mkdir(parents=True, exist_ok=True)
     
     # 1. Download PROSITE files
     prosite_paths = {
-        PROSITE_DATA_FILE: ROOT / PROSITE_DATA_FILE,
-        PROSITE_DOC_FILE: ROOT / PROSITE_DOC_FILE,
+        PROSITE_DATA_FILE: output_root / PROSITE_DATA_FILE,
+        PROSITE_DOC_FILE: output_root / PROSITE_DOC_FILE,
     }
-    download_results = download_prosite(ROOT)
+    download_results = download_prosite(output_root)
     prosite_dat_ready = download_results[PROSITE_DATA_FILE] and prosite_paths[PROSITE_DATA_FILE].exists()
     prosite_doc_ready = download_results[PROSITE_DOC_FILE] and prosite_paths[PROSITE_DOC_FILE].exists()
     
@@ -484,9 +486,9 @@ def main():
     if prosite_dat_ready:
         if emboss_patmatmotifs_available:
             log("EMBOSS 'patmatmotifs' encontrado en el sistema.")
-            emboss_data_dir = ROOT / EMBOSS_DATA_DIR
+            emboss_data_dir = output_root / EMBOSS_DATA_DIR
             success = False
-            if prosite_doc_ready and prepare_prosite_for_emboss(ROOT, emboss_data_dir):
+            if prosite_doc_ready and prepare_prosite_for_emboss(output_root, emboss_data_dir):
                 success = run_patmatmotifs_emboss(orfs_fasta, domains_file, emboss_data_dir)
             elif not prosite_doc_ready:
                 log("No se pudo usar patmatmotifs nativo porque prosite.doc no está disponible.")

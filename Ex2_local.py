@@ -98,12 +98,12 @@ def main():
     best = finalize_best_result(
         results,
         summary_path,
-        xml_copy="blast_results_local.xml",
-        fasta_copy="query_best_local.fasta",
+        xml_copy=output_dir.parent / "blast_results_local.xml",
+        fasta_copy=output_dir.parent / "query_best_local.fasta",
     )
     print_interpretation(best)
     print(f"\nResumen: {summary_path}")
-    print("Salida principal: blast_results_local.xml")
+    print(f"Salida principal: {output_dir.parent / 'blast_results_local.xml'}")
 
 
 if __name__ == "__main__":

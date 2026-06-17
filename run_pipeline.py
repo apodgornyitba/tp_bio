@@ -15,7 +15,8 @@ from pathlib import Path
 from platform_tools import default_blast_db, find_blastp, python_command, project_root
 
 ROOT = project_root()
-LOG_FILE = ROOT / "pipeline.log"
+RESULTS_DIR = ROOT / "results"
+LOG_FILE = RESULTS_DIR / "pipeline.log"
 BLAST_MODES = ("remote", "local", "both")
 MSA_SOURCES = ("auto", "remote", "local")
 
@@ -112,14 +113,14 @@ def parse_args():
     return parser.parse_args()
 
 
-def selected_msa_artifacts(blast_mode, msa_source):
+def selected_msa_artifacts(base_dir, blast_mode, msa_source):
     source = msa_source
     if source == "auto":
         source = "local" if blast_mode == "local" else "remote"
 
     if source == "local":
-        return source, ROOT / "blast_results_local.xml", ROOT / "query_best_local.fasta"
-    return source, ROOT / "blast_results.xml", ROOT / "query_best.fasta"
+        return source, base_dir / "blast_results_local.xml", base_dir / "query_best_local.fasta"
+    return source, base_dir / "blast_results.xml", base_dir / "query_best.fasta"
 
 
 def main():
@@ -137,8 +138,10 @@ def main():
     os.environ["MSA_SOURCE"] = args.msa_source
     os.environ["SKIP_BLAST"] = "1" if skip_blast else "0"
     os.environ["REQUIRE_EMBOSS"] = "1" if require_emboss else "0"
-    if args.blast_db:
-        os.environ["BLAST_DB"] = args.blast_db
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    effective_blast_db = args.blast_db if args.blast_db else str(RESULTS_DIR / "data" / "swissprot_db")
+    os.environ["BLAST_DB"] = effective_blast_db
 
     LOG_FILE.write_text(f"=== Pipeline {datetime.now().isoformat()} ===\n", encoding="utf-8")
 
@@ -148,21 +151,34 @@ def main():
     log(f" BLAST_MODE: {blast_mode}")
     log(f" MSA_SOURCE: {args.msa_source}")
     log(f" ENTREZ_EMAIL: {email}")
-    if args.blast_db:
-        log(f" BLAST_DB: {args.blast_db}")
+    log(f" RESULTS_DIR: {RESULTS_DIR}")
+    log(f" BLAST_DB: {effective_blast_db}")
     log(f" SKIP_BLAST: {skip_blast}")
     log(f" REQUIRE_EMBOSS: {require_emboss}")
     log("=" * 50)
 
     # Paso 0
-    run_step("Descarga GenBank", [py, "fetch_data.py"], ROOT / "NM_000207.gbk")
+    gbk_path = RESULTS_DIR / "NM_000207.gbk"
+    frames_path = RESULTS_DIR / "NM_000207_frames.fasta"
+    frame_annotation_path = RESULTS_DIR / "frame_annotation.txt"
+    blast_remote_dir = RESULTS_DIR / "blast_results"
+    blast_local_dir = RESULTS_DIR / "blast_results_local"
+    msa_input_path = RESULTS_DIR / "msa_input.fasta"
+    msa_output_path = RESULTS_DIR / "msa_output.afa"
+    emboss_dir = RESULTS_DIR / "emboss_results"
+    primer_dir = RESULTS_DIR / "primer_results"
+
+    run_step("Descarga GenBank", [py, "fetch_data.py", str(gbk_path)], gbk_path)
 
     # Paso 1
     run_step(
         "Ejercicio 1 - 6 marcos",
-        [py, "Ex1.py", "NM_000207.gbk", "NM_000207_frames.fasta"],
-        ROOT / "NM_000207_frames.fasta",
+        [py, "Ex1.py", str(gbk_path), str(frames_path)],
+        frames_path,
     )
+    if not frame_annotation_path.exists():
+        log(f"[ERROR] No se genero: {frame_annotation_path}")
+        sys.exit(1)
 
     # Paso 2
     if not skip_blast:
@@ -170,8 +186,8 @@ def main():
             log("[INFO] BLAST remoto (6 consultas, ~30-60 min)")
             run_step(
                 "Ejercicio 2 - BLAST remoto",
-                [py, "Ex2_a.py", "NM_000207_frames.fasta", "blast_results"],
-                ROOT / "blast_results.xml",
+                [py, "Ex2_a.py", str(frames_path), str(blast_remote_dir)],
+                RESULTS_DIR / "blast_results.xml",
             )
 
         if blast_mode in ("local", "both"):
@@ -185,13 +201,13 @@ def main():
                 sys.exit(1)
             run_step(
                 "Ejercicio 2 - BLAST local",
-                [py, "Ex2_local.py", "NM_000207_frames.fasta", "blast_results_local"],
-                ROOT / "blast_results_local.xml",
+                [py, "Ex2_local.py", str(frames_path), str(blast_local_dir)],
+                RESULTS_DIR / "blast_results_local.xml",
             )
     else:
         log("[INFO] SKIP_BLAST=1: omitiendo BLAST")
 
-    msa_source, blast_xml, query_fasta = selected_msa_artifacts(blast_mode, args.msa_source)
+    msa_source, blast_xml, query_fasta = selected_msa_artifacts(RESULTS_DIR, blast_mode, args.msa_source)
     log(f"[INFO] Ejercicio 3 usara resultados BLAST '{msa_source}': {blast_xml.name}, {query_fasta.name}")
 
     missing_inputs = [path.name for path in (blast_xml, query_fasta) if not path.exists()]
@@ -203,34 +219,43 @@ def main():
     # Paso 3
     run_step(
         "Ejercicio 3 - MSA",
-        [py, "Ex3.py", str(blast_xml.name), str(query_fasta.name)],
-        ROOT / "msa_output.afa",
+        [
+            py,
+            "Ex3.py",
+            str(blast_xml),
+            str(query_fasta),
+            "--msa-input",
+            str(msa_input_path),
+            "--msa-output",
+            str(msa_output_path),
+        ],
+        msa_output_path,
     )
 
     # Paso 4
-    ex4_cmd = [py, "Ex4.py", "NM_000207.gbk", "emboss_results"]
+    ex4_cmd = [py, "Ex4.py", str(gbk_path), str(emboss_dir)]
     if require_emboss:
         ex4_cmd.append("--require-emboss")
     run_step(
         "Ejercicio 4 - EMBOSS y Dominios",
         ex4_cmd,
-        ROOT / "emboss_results" / "NM_000207_domains.patmatmotifs",
+        emboss_dir / "NM_000207_domains.patmatmotifs",
     )
 
     # Paso 5
     run_step(
         "Ejercicio 5 - Diseño de Primers",
-        [py, "Ex5.py", "NM_000207.gbk", "primer_config.json", "primer_results"],
-        ROOT / "primer_results" / "primers.json",
+        [py, "Ex5.py", str(gbk_path), "primer_config.json", str(primer_dir)],
+        primer_dir / "primers.json",
     )
 
     log("\n" + "=" * 50)
     log(" PIPELINE FINALIZADO")
-    log(" Archivos generados:")
-    log("  - NM_000207.gbk, NM_000207_frames.fasta")
+    log(f" Archivos generados en: {RESULTS_DIR}")
+    log("  - NM_000207.gbk, NM_000207_frames.fasta, frame_annotation.txt")
     log("  - blast_results* (XML y mejores consultas)")
-    log("  - msa_output.afa (alineamiento múltiple)")
-    log("  - emboss_results/ (NM_000207_nucleotides.fasta, NM_000207_orfs.fasta, NM_000207_domains.patmatmotifs)")
+    log("  - msa_input.fasta, msa_output.afa")
+    log("  - emboss_results/ + prosite.dat/prosite.doc + .emboss_data/")
     log("  - primer_results/ (primers.json, primers_report.txt)")
     if blast_mode == "both":
         log("  Remoto: blast_results/ | Local: blast_results_local/")
